@@ -90,7 +90,7 @@ header {
 /* 💻 電腦端與平板橫屏：極致大標題 */
 header h1 {
   font-family: 'Polyamine', var(--main-font);
-  font-size: 5.5rem; /* 超大氣勢 */
+  font-size: 5.5rem;
   color: var(--primary);
   letter-spacing: 10px;
   text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
@@ -104,11 +104,11 @@ header h1 {
   }
 }
 
-/* 📱 手機端：比原本的 3.8rem 更大！ */
+/* 📱 手機端 */
 @media (max-width: 768px) {
   header h1 {
-    font-size: 4.5rem; /* 👈 恢復到妳原本滿意的大尺寸（或可改成 4.0rem） */
-    letter-spacing: 5px; /* 手機上記得保留一點點字距微調，避免文字超出螢幕邊緣 */
+    font-size: 4.5rem;
+    letter-spacing: 5px;
   }
 }
 
@@ -258,7 +258,7 @@ header h1 {
       background: rgba(18, 24, 38, 0.75) !important;
       padding: 12px 12px 18px 12px;
       border-radius: 12px;
-      border: 1px solid rgba(125, 185, 222, 0.4); /* 勿忘草藍柔光細邊 */
+      border: 1px solid rgba(125, 185, 222, 0.4);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
       transform: rotate(-1deg);
       transition: transform 0.3s ease;
@@ -277,7 +277,7 @@ header h1 {
       text-align: center;
       font-size: 0.9rem;
       font-weight: 500;
-      color: #7DB9DE; /* 勿忘草色文字 */
+      color: #7DB9DE;
     }
     
     /* 真心話頁面 */
@@ -291,26 +291,87 @@ header h1 {
       white-space: pre-line;
     }
 
-    /* 全域懸浮音樂控制元件 */
+    /* =========================================================
+       ✨ 全域懸浮極簡膠囊音樂播放器樣式 (樣式二)
+       ========================================================= */
     .music-widget {
       position: fixed;
-      bottom: 25px; right: 25px;
-      width: 52px; height: 52px;
-      background: rgba(11, 15, 25, 0.85);
-      border: 2px solid var(--primary);
-      border-radius: 50%;
+      bottom: 25px; 
+      right: 25px;
+      background: rgba(18, 24, 38, 0.85);
+      border: 1px solid rgba(255, 215, 0, 0.4);
+      border-radius: 30px;
       z-index: 10;
       display: flex;
       align-items: center;
-      justify-content: center;
+      gap: 12px;
+      padding: 8px 16px;
       cursor: pointer;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
-      backdrop-filter: blur(10px);
-      animation: spin 6s linear infinite;
-      animation-play-state: paused;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      transition: all 0.3s ease;
     }
-    .music-widget.playing { animation-play-state: running; }
-    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    .music-widget:hover {
+      border-color: rgba(255, 215, 0, 0.8);
+      box-shadow: 0 8px 30px rgba(255, 215, 0, 0.2);
+    }
+
+    .music-icon-btn {
+      font-size: 1.1rem;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .music-text-info {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      letter-spacing: 1px;
+    }
+
+    .music-text-info span.title {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    /* 動態音波條容器 */
+    .waveform {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 16px;
+    }
+
+    .waveform span {
+      display: block;
+      width: 2.5px;
+      height: 4px;
+      background-color: var(--text-sub);
+      border-radius: 2px;
+      transition: height 0.2s ease;
+    }
+
+    /* 播放時音波跳動動畫 */
+    .music-widget.playing .waveform span {
+      background-color: #ffd700;
+      animation: wave-anim 0.8s ease-in-out infinite alternate;
+    }
+
+    .music-widget.playing .waveform span:nth-child(1) { animation-delay: 0.1s; }
+    .music-widget.playing .waveform span:nth-child(2) { animation-delay: 0.3s; }
+    .music-widget.playing .waveform span:nth-child(3) { animation-delay: 0.2s; }
+    .music-widget.playing .waveform span:nth-child(4) { animation-delay: 0.4s; }
+
+    @keyframes wave-anim {
+      0% { height: 4px; }
+      100% { height: 16px; }
+    }
 
     /* 密碼解鎖層 */
     #lock-screen {
@@ -434,7 +495,7 @@ header h1 {
       <h1>AIMER L'HOMME RÉEL.</h1>
     </header>
 
- <!-- 頁籤選單 Bar -->
+    <!-- 頁籤選單 Bar -->
     <nav class="nav-tabs">
       <button class="tab-btn active" onclick="switchTab('about', this)">
         <span class="tab-icon"> 🐧 </span>
@@ -457,12 +518,11 @@ header h1 {
     <!-- 卡片內容區 -->
     <div class="card-content">
       
-<!-- 1. 關於我們卡片 -->
+      <!-- 1. 關於我們卡片 -->
       <div id="card-about" class="page-card active">
         <div class="card-header-title" style="font-size: 2.2rem;">𝜗𝜚⸝⸝꙳About the Two Little Penguins</div>
         <div class="profile-badge">
           <div>
-
             <div class="avatar-placeholder">🤵‍♂️</div>
             <div style="font-size: 0.85rem; color: var(--text-sub);"> 𝓘𝓵 </div>
           </div>
@@ -481,42 +541,39 @@ header h1 {
         </div>
 
         <!-- 企鵝寶卡片底部紀念影片 -->
-   <div class="video-container" style="margin-bottom: 20px;">
-    <video id="gallery-video" 
-         autoplay 
-         loop 
-         muted 
-         playsinline 
-         preload="auto" 
-         controls
-         onplay="this.muted=true; this.volume=0;"
-         style="width: 100%; height: auto; display: block; border-radius: 14px; box-sizing: border-box; transform: translateZ(0);">
-    <source src="Chu.mp4" type="video/mp4">
-    您的瀏覽器不支援 HTML5 影片播放。
-            </video>
-         </div>
+        <div class="video-container" style="margin-top: 20px;">
+          <video id="about-video" 
+               autoplay 
+               loop 
+               muted 
+               playsinline 
+               preload="auto" 
+               controls
+               onplay="this.muted=true; this.volume=0;">
+            <source src="Chu.mp4" type="video/mp4">
+            您的瀏覽器不支援 HTML5 影片播放。
+          </video>
+        </div>
       </div>
         
- <!-- 2. 時光似沙漏卡片 -->
+      <!-- 2. 時光似沙漏卡片 -->
       <div id="card-timer" class="page-card">
         <div class="card-header-title" style="font-size: 2.2rem; text-align: center;">
           NOTRE TEMPS D'AMOUR ⏳ 
         </div>
 
-   
-          
         <!-- 🌟 紀念圖區塊 -->
-      <div style="text-align: center; margin: 15px 0 20px 0;">
-        <img src="1027.jpg" alt="1027 紀念圖" 
-             style="width: 280px; height: 200px; object-fit: cover; border-radius: 16px; border: 1.5px solid rgba(255, 255, 255, 0.6); box-shadow: 0 8px 24px rgba(0,0,0,0.4); cursor: pointer; transition: transform 0.3s;"
-             onmouseover="this.style.transform='scale(1.02)'" 
-             onmouseout="this.style.transform='scale(1)'"
-             onclick="openLightbox('1027.jpg', '1027 紀念圖')">
-        <div style="font-size: 0.78rem; color: #cbd5e0; margin-top: 10px; letter-spacing: 1.2px; opacity: 0.85;">
-          ✨ ɪ'ᴅ ʟɪᴋᴇ ᴛᴏ ʀᴇᴅᴇꜱɪɢɴ <br>
-          ᴛʜɪꜱ ɪᴍᴀɢᴇ ꜰᴏʀ ᴀ ᴛᴀᴛᴛᴏᴏ ✨
+        <div style="text-align: center; margin: 15px 0 20px 0;">
+          <img src="1027.jpg" alt="1027 紀念圖" 
+               style="width: 280px; height: 200px; object-fit: cover; border-radius: 16px; border: 1.5px solid rgba(255, 255, 255, 0.6); box-shadow: 0 8px 24px rgba(0,0,0,0.4); cursor: pointer; transition: transform 0.3s;"
+               onmouseover="this.style.transform='scale(1.02)'" 
+               onmouseout="this.style.transform='scale(1)'"
+               onclick="openLightbox('1027.jpg', '1027 紀念圖')">
+          <div style="font-size: 0.78rem; color: #cbd5e0; margin-top: 10px; letter-spacing: 1.2px; opacity: 0.85;">
+            ✨ ɪ'ᴅ ʟɪᴋᴇ ᴛᴏ ʀᴇᴅᴇꜱɪɢɴ <br>
+            ᴛʜɪꜱ ɪᴍᴀɢᴇ ꜰᴏʀ ᴀ ᴛᴀᴛᴛᴏᴏ ✨
+          </div>
         </div>
-      </div>
 
         <!-- 上方相片條 -->
         <div style="margin: 15px 0;">
@@ -524,11 +581,11 @@ header h1 {
         </div>
         
         <!-- 溫柔的文字描述 -->
-       <div style="font-size: 0.88rem; color: var(--text-sub); text-align: center; margin: 16px 0; letter-spacing: 0.8px;">
+        <div style="font-size: 0.88rem; color: var(--text-sub); text-align: center; margin: 16px 0; letter-spacing: 0.8px;">
            ✦ 蹭蹭寶的日子正在不斷地熵增... ✦
         </div>
         
-        <!-- 倒數計時顯示（完美置中） -->
+        <!-- 倒數計時顯示 -->
         <div style="text-align: center; margin-top: 15px;">
           <div class="timer-days" id="days-count">0 DAYS</div>
           <div class="timer-detail-box" id="timer-detail" style="margin-bottom: 15px; display: inline-block;">00小時 00分 00秒</div>
@@ -540,64 +597,59 @@ header h1 {
         </div>
       </div>
     
-<!-- 3. 相片館卡片 -->
+      <!-- 3. 相片館卡片 -->
       <div id="card-gallery" class="page-card">
         <div class="card-header-title" style="font-size: 2.2rem; text-align: center;">
           Le Palais<br>des Souvenirs 🎞️
         </div>
 
-<!-- MP4 影片播放容器 -->
-<div class="video-container" style="margin-bottom: 20px;">
-  <video id="gallery-video" 
-         autoplay 
-         loop 
-         muted 
-         playsinline 
-         preload="auto" 
-         controls
-         onplay="this.muted=true; this.volume=0;"
-         style="width: 100%; height: auto; display: block; border-radius: 14px; box-sizing: border-box; transform: translateZ(0);">
-    <source src="bebe.mp4" type="video/mp4">
-    您的瀏覽器不支援 HTML5 影片播放。
-  </video>
-</div>
+        <!-- MP4 影片播放容器 -->
+        <div class="video-container" style="margin-bottom: 20px;">
+          <video id="gallery-video" 
+                 autoplay 
+                 loop 
+                 muted 
+                 playsinline 
+                 preload="auto" 
+                 controls
+                 onplay="this.muted=true; this.volume=0;">
+            <source src="bebe.mp4" type="video/mp4">
+            您的瀏覽器不支援 HTML5 影片播放。
+          </video>
+        </div>
+        
         <!-- 影片下方的文字敘述 -->
         <div style="text-align: center; margin-top: 8px; margin-bottom: 20px; font-size: 1rem; color: #7DB9DE; opacity: 0.9; letter-spacing: 1px;">
           怎摸口以那摸像隻可愛小企鵝ㄚ🐧
         </div>
         
         <div class="photo-grid">
-          <!-- 1. 初次相遇 -->
           <div class="polaroid-item" onclick="openLightbox('初次相遇.jpg', '稚嫩的偶悶⋯')">
             <img src="初次相遇.jpg" alt="初次相遇">
             <div class="polaroid-caption">難以忘記初次見你～一雙迷人的眼睛～🎵</div>
           </div>
 
-          <!-- 2. 初次旅行 -->
           <div class="polaroid-item" onclick="openLightbox('初次旅行.jpg', '後來的我們還去了好多地方͈ᴗ̀ ̫ᴗ́ ͈')">
             <img src="初次旅行.jpg" alt="初次旅行">
             <div class="polaroid-caption">第一次一起旅行...花蓮遊🌼*･</div>
           </div>
 
-          <!-- 3. 日常時光 -->
           <div class="polaroid-item" onclick="openLightbox('日常時光.jpg', '喜歡到處探險的兩個企鵝寶！')">
             <img src="日常時光.jpg" alt="日常時光">
             <div class="polaroid-caption">美好的日常...裝備齊全冒險去！(ﾉ꒳​≦*)</div>
           </div>
 
-          <!-- 4. 特別的日子 -->
           <div class="polaroid-item" onclick="openLightbox('特別的日子.jpg', '不斷地增加許多小寶貝(⸝⸝⸝ ◝ ꘓ  ◜ ⸝⸝⸝ )')">
             <img src="特別的日子.jpg" alt="特別的日子">
             <div class="polaroid-caption">特別的日子...大集合！( ᎔˘꒳˘᎔)</div>
           </div>
 
-          <!-- 5. 期待未來 -->
           <div class="polaroid-item" onclick="openLightbox('期待未來.jpg', '你就是我要遇見的特別的人🤍')">
             <img src="期待未來.jpg" alt="期待未來">
             <div class="polaroid-caption">今後的歲月～讓我們一起瞭解〰️💞</div>
           </div>
         </div>
-      </div> <!-- 👈 整個相片館卡片在這裡完美結束 -->
+      </div>
 
       <!-- 4. 愛言葉卡片 -->
       <div id="card-letter" class="page-card">
@@ -624,7 +676,7 @@ header h1 {
             ➤「要愛生活而不是生活的意義」<br>
             對於現狀我時不時總會感到憂心忡忡（🌀_🌀;）<br>
             可是寶會陪伴著迷茫的我<br>
-            分擔我的憂愁(  ૢ ͈̄   ͈̄ ૢ)…ﾓｼﾞﾓｼﾞ<br>
+            分擔我的憂愁(  ૢ ͈̄   ͈̄ ૢ)…ﾓｼﾞﾓｼﾞ<br>
             謝謝偶的寶！👩‍❤️‍💋‍👨<br>
             最重要的是陪伴、要永遠在一起𝓁ℴ𝓋ℯ...❤︎<br>
             約好了這個世界一起逛🌍⋆˚꩜｡🧑‍🤝‍🧑<br>
@@ -637,7 +689,7 @@ header h1 {
           <p style="margin-top: 12px;">
           越來越愛寶！<br>不能迷有寶！
           要一直永遠有個寶！<br>
-         Σ>―(〃°ω°〃)♡→<br>
+          Σ>―(〃°ω°〃)♡→<br>
             <span style="display: block; text-align: right; margin-top: 8px;">➤ ♾️ 永遠愛你的寶 ✶🐧💗</span>
           </p>
         </div>
@@ -646,8 +698,21 @@ header h1 {
     </div>
   </div>
 
-  <!-- 全域懸浮音樂按鈕 -->
-  <div class="music-widget" id="musicBtn" onclick="toggleMusic()">🎵</div>
+  <!-- ✨ 全域懸浮極簡膠囊音樂播放器按鈕 (樣式二) -->
+  <div class="music-widget" id="musicBtn" onclick="toggleMusic()">
+    <div class="music-icon-btn">🎵</div>
+    <div class="music-text-info">
+      <span class="title">3rd Anniv.</span>
+      <span>Music Player</span>
+    </div>
+    <div class="waveform">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
   <audio id="bgm" src="background.mp3" loop autoplay></audio>
 
   <script>
@@ -682,43 +747,34 @@ header h1 {
       }
     }
 
-   function switchTab(tabId, btnElement) {
+    function switchTab(tabId, btnElement) {
       currentTab = tabId;
 
-      // 1. 處理頁籤按鈕高亮切換
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       btnElement.classList.add('active');
 
-      // 2. 處理卡片內容顯示切換
       document.querySelectorAll('.page-card').forEach(card => card.classList.remove('active'));
       const activeCard = document.getElementById(`card-${tabId}`);
       if (activeCard) activeCard.classList.add('active');
 
-      // 3. 處理「企鵝寶」影片 (Chu.mp4) 的自動播放與暫停
       const aboutVideo = document.getElementById('about-video');
       if (aboutVideo) {
         if (tabId === 'about') {
-          aboutVideo.play().catch(err => {
-            console.log("瀏覽器阻擋自動播放企鵝寶影片：", err);
-          });
+          aboutVideo.play().catch(err => { console.log(err); });
         } else {
           aboutVideo.pause();
         }
       }
 
-      // 4. 處理「回憶殿堂」影片 (bebe.mp4) 的自動播放與暫停
       const galleryVideo = document.getElementById('gallery-video');
       if (galleryVideo) {
         if (tabId === 'gallery') {
-          galleryVideo.play().catch(err => {
-            console.log("瀏覽器阻擋自動播放回憶殿堂影片：", err);
-          });
+          galleryVideo.play().catch(err => { console.log(err); });
         } else {
           galleryVideo.pause();
         }
       }
 
-      // 5. 處理背景音樂切換
       const targetMusic = musicMap[tabId];
       if (targetMusic && bgm.src.indexOf(targetMusic) === -1) {
         const isPlaying = !bgm.paused;
@@ -744,6 +800,7 @@ header h1 {
 
     const bgm = document.getElementById('bgm');
     const musicBtn = document.getElementById('musicBtn');
+    
     function toggleMusic() {
       if (bgm.paused) {
         bgm.play();
@@ -753,6 +810,10 @@ header h1 {
         musicBtn.classList.remove('playing');
       }
     }
+
+    // 當音樂實際開始播放或暫停時，同步膠囊音波動畫狀態
+    bgm.addEventListener('play', () => { musicBtn.classList.add('playing'); });
+    bgm.addEventListener('pause', () => { musicBtn.classList.remove('playing'); });
 
     const canvas = document.getElementById('stars');
     const ctx = canvas.getContext('2d');
