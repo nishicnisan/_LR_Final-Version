@@ -79,39 +79,27 @@
       align-items: center;
     }
 
-
     /* 頂部 Header */
-header {
-  text-align: center;
-  margin-top: 15px;
-  margin-bottom: 20px;
- }
+    header {
+      text-align: center;
+      margin-top: 15px;
+      margin-bottom: 20px;
+    }
 
-/* 💻 電腦端與平板橫屏：極致大標題 */
-header h1 {
-  font-family: 'Polyamine', var(--main-font);
-  font-size: 5.5rem;
-  color: var(--primary);
-  letter-spacing: 10px;
-  text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-}
+    header h1 {
+      font-family: 'Polyamine', var(--main-font);
+      font-size: 5.5rem;
+      color: var(--primary);
+      letter-spacing: 10px;
+      text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
 
-/* 📱 平板直屏：維持大尺寸 */
-@media (max-width: 1024px) {
-  header h1 {
-    font-size: 4.5rem;
-    letter-spacing: 8px;
-  }
-}
-
-/* 📱 手機端 */
-@media (max-width: 768px) {
-  header h1 {
-    font-size: 4.5rem;
-    letter-spacing: 5px;
-  }
-}
-
+    @media (max-width: 1024px) {
+      header h1 { font-size: 4.5rem; letter-spacing: 8px; }
+    }
+    @media (max-width: 768px) {
+      header h1 { font-size: 4.5rem; letter-spacing: 5px; }
+    }
 
     /* 導覽頁籤 (Navigation Tabs) */
     .nav-tabs {
@@ -154,9 +142,7 @@ header h1 {
     }
 
     /* 頁面卡片容器 */
-    .card-content {
-      width: 100%;
-    }
+    .card-content { width: 100%; }
 
     /* 單一卡片頁面 */
     .page-card {
@@ -174,9 +160,7 @@ header h1 {
       animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
 
-    .page-card.active {
-      display: block !important;
-    }
+    .page-card.active { display: block !important; }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(12px); }
@@ -196,11 +180,6 @@ header h1 {
       gap: 8px;
     }
 
-    .letter-box, .timer-box {
-      background: transparent !important;
-      border: none !important;
-    }
-    
     /* 關於我們頁面 */
     .about-info-box {
       line-height: 1.8;
@@ -227,10 +206,6 @@ header h1 {
     }
 
     /* 計時器頁面 */
-    .timer-display {
-      text-align: center;
-      padding: 20px 0;
-    }
     .timer-days {
       font-size: 2.8rem;
       font-weight: 700;
@@ -247,8 +222,9 @@ header h1 {
       display: inline-block;
       margin-top: 10px;
     }
-/* =========================================================
-       ✨ 完美等速循環旋轉的黑膠唱片播放器
+
+    /* =========================================================
+       ✨ 完美等速循環旋轉的透明勿忘草色黑膠唱片播放器
        ========================================================= */
     .music-widget {
       position: fixed;
@@ -256,7 +232,7 @@ header h1 {
       right: 25px;
       width: 75px; 
       height: 75px;
-      /* background-image: url('妳的唱片圖片名稱.png'); */ /* 等圖做好後取消註解並填入檔名 */
+      background-image: url('vinyl.png'); /* 唱片圖片檔名 */
       background-size: cover;
       background-position: center;
       background-color: transparent !important;
@@ -284,6 +260,7 @@ header h1 {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+
     /* 真心話頁面 */
     .letter-box {
       background: transparent;
@@ -294,45 +271,6 @@ header h1 {
       font-size: 0.95rem;
       white-space: pre-line;
     }
-
- /* =========================================================
-       ✨ 圖片版：透明勿忘草色黑膠唱片播放器
-       ========================================================= */
-    .music-widget {
-      position: fixed;
-      bottom: 25px; 
-      right: 25px;
-      width: 75px; 
-      height: 75px;
-      /* background-image: url('forgetmenot-vinyl.png'); */
-      background-size: cover;
-      background-position: center;
-      background-color: transparent !important;
-      border: none !important;
-      z-index: 10;
-      cursor: pointer;
-      border-radius: 50%;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(125, 185, 222, 0.4);
-      
-      /* 使用 linear 達到完美無縫等速循環 */
-      animation: vinyl-spin 4s linear infinite;
-      animation-play-state: paused;
-      transition: transform 0.3s ease;
-    }
-
-    .music-widget:hover {
-      transform: scale(1.08);
-    }
-
-    .music-widget.playing {
-      animation-play-state: running;
-    }
-
-    @keyframes vinyl-spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    
     
     /* 密碼解鎖層 */
     #lock-screen {
@@ -384,10 +322,8 @@ header h1 {
       display: none;
       position: fixed;
       z-index: 9999;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       background-color: rgba(0, 0, 0, 0.85);
       justify-content: center;
       align-items: center;
@@ -440,51 +376,67 @@ header h1 {
     /* =========================================================
        ✨ 回憶殿堂照片：勿忘草藍半透明濾鏡與點擊切換
        ========================================================= */
-    .memory-photo-container {
-      position: relative;
-      border-radius: 12px;
-      overflow: hidden;
-      cursor: pointer;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
     }
-
-    .memory-photo-container img {
+    .polaroid-item {
+      position: relative;
+      background: rgba(18, 24, 38, 0.75) !important;
+      padding: 12px 12px 18px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(125, 185, 222, 0.4);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      transform: rotate(-1deg);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .polaroid-item img {
       width: 100%;
-      height: auto;
-      display: block;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 6px;
       opacity: 0.8; /* 預設 80% 透明度 */
       transition: opacity 0.4s ease, filter 0.4s ease;
     }
 
     /* 勿忘草藍色半透明覆蓋層 */
-    .memory-photo-container::after {
+    .polaroid-item::after {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 12px;
+      left: 12px;
+      right: 12px;
+      height: 220px;
       background: linear-gradient(135deg, rgba(125, 185, 222, 0.45), rgba(100, 160, 200, 0.3));
       mix-blend-mode: overlay;
       pointer-events: none;
+      border-radius: 6px;
       transition: opacity 0.4s ease;
     }
 
-    /* 滑鼠移上去 或 點擊加上 .active 時：恢復彩色、100% 清晰 */
-    .memory-photo-container:hover img,
-    .memory-photo-container.active img {
+    .polaroid-item:nth-child(even) { transform: rotate(1.5deg); }
+
+    /* 滑鼠移上去時：藍色濾鏡淡出，照片恢復 100% 清晰彩色 */
+    .polaroid-item:hover img {
       opacity: 1;
     }
-
-    .memory-photo-container:hover::after,
-    .memory-photo-container.active::after {
+    .polaroid-item:hover::after {
       opacity: 0;
     }
-
-    .memory-photo-container:hover {
-      transform: scale(1.02);
+    .polaroid-item:hover {
+      transform: scale(1.02) rotate(0deg);
       box-shadow: 0 12px 30px rgba(125, 185, 222, 0.5);
+    }
+
+    .polaroid-caption {
+      margin-top: 12px;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #7DB9DE;
     }
   </style>
 </head>
@@ -709,7 +661,7 @@ header h1 {
     </div>
   </div>
 
- <!-- ✨ 唯美透明勿忘草色黑膠唱片音樂播放器按鈕 -->
+  <!-- ✨ 唯美透明勿忘草色黑膠唱片音樂播放器按鈕 -->
   <div class="music-widget" id="musicBtn" onclick="toggleMusic()" title="點擊播放/暫停音樂"></div>
 
   <audio id="bgm" src="background.mp3" loop autoplay></audio>
@@ -810,7 +762,6 @@ header h1 {
       }
     }
 
-    // 當音樂實際開始播放或暫停時，同步膠囊音波動畫狀態
     bgm.addEventListener('play', () => { musicBtn.classList.add('playing'); });
     bgm.addEventListener('pause', () => { musicBtn.classList.remove('playing'); });
 
