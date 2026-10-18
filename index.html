@@ -30,11 +30,14 @@
     /* =========================================================
        1. 全域風格變數 (美學系統設定)
        ========================================================= */
+   /* =========================================================
+       1. 全域風格變數 (美學系統設定 - 已全面改為勿忘草藍色系)
+       ========================================================= */
     :root {
       --bg-dark: #0b0f19;
       --card-bg: rgba(18, 24, 38, 0.75);
-      --card-border: rgba(255, 215, 0, 0.25);
-      --primary: #FFFFFB;
+      --card-border: rgba(125, 185, 222, 0.5); /* 框線改為勿忘草藍 */
+      --primary: #7DB9DE; /* 主色調改為勿忘草藍 */
       --primary-hover: #3A8FB7;
       --text-main: #f0f4f8;
       --text-sub: #a0aec0;
@@ -86,12 +89,13 @@
       margin-bottom: 20px;
     }
 
-    header h1 {
+   header h1 {
       font-family: 'Polyamine', var(--main-font);
       font-size: 5.5rem;
       color: var(--primary);
       letter-spacing: 10px;
-      text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+      /* 將原本的金光改成勿忘草藍色光暈 */
+      text-shadow: 0 0 20px rgba(125, 185, 222, 0.6);
     }
 
     @media (max-width: 1024px) {
@@ -141,20 +145,20 @@
       box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
     }
 
-    /* 頁面卡片容器 */
+   /* 頁面卡片容器 */
     .card-content { width: 100%; }
 
-    /* 單一卡片頁面 */
+    /* 單一卡片頁面本體 */
     .page-card {
       display: none !important;
       background: rgba(18, 24, 38, 0.1) !important;
       backdrop-filter: blur(6px) !important;
       -webkit-backdrop-filter: blur(6px) !important;
-      border: 1.5px solid rgba(255, 215, 0, 0.7) !important;
+      border: 1.5px solid rgba(125, 185, 222, 0.7) !important; /* 勿忘草藍邊框 */
       box-shadow: 
-        0 0 16px rgba(255, 215, 0, 0.35), 
-        0 0 32px rgba(255, 215, 0, 0.12), 
-        0 8px 32px 0 rgba(0, 0, 0, 0.4) !important; 
+        0 0 16px rgba(125, 185, 222, 0.35), 
+        0 0 32px rgba(125, 185, 222, 0.12), 
+        0 8px 32px 0 rgba(0, 0, 0, 0.4) !important; /* 勿忘草藍光暈 */
       border-radius: 24px !important;
       padding: 30px 25px !important;
       animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
@@ -167,6 +171,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    /* 卡片標題 */
     .card-header-title {
       font-family: 'Polyamine', var(--main-font);
       font-size: 1.35rem;
@@ -179,7 +184,7 @@
       justify-content: center;
       gap: 8px;
     }
-
+    
     /* 關於我們頁面 */
     .about-info-box {
       line-height: 1.8;
