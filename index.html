@@ -291,38 +291,60 @@ header h1 {
       white-space: pre-line;
     }
 
-    /* =========================================================
-       ✨ 樣式一：復古黑膠唱片音樂播放器 (Vinyl Record Style)
+   /* =========================================================
+       ✨ 唯美透明勿忘草色黑膠唱片 (CSS 渲染版)
        ========================================================= */
     .music-widget {
       position: fixed;
       bottom: 25px; 
       right: 25px;
-      width: 65px; 
-      height: 65px;
-      background: radial-gradient(circle, #222 30%, #111 70%, #000 100%);
-      border: 2px solid rgba(255, 215, 0, 0.6);
+      width: 68px; 
+      height: 68px;
       border-radius: 50%;
       z-index: 10;
+      cursor: pointer;
+      /* 勿忘草藍半透明質感與唱片細紋漸層 */
+      background: 
+        radial-gradient(circle, rgba(255, 255, 255, 0.9) 12%, rgba(125, 185, 222, 0.8) 13%, rgba(125, 185, 222, 0.35) 28%, rgba(100, 160, 200, 0.5) 50%, rgba(125, 185, 222, 0.25) 70%, rgba(125, 185, 222, 0.6) 100%);
+      border: 1.5px solid rgba(255, 255, 255, 0.65);
+      box-shadow: 
+        0 0 15px rgba(125, 185, 222, 0.5), 
+        0 8px 25px rgba(0, 0, 0, 0.5),
+        inset 0 0 10px rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
       display: flex;
       align-items: center;
       justify-content: center;
-      cursor: pointer;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
-      animation: vinyl-spin 4s linear infinite;
+      
+      /* 設定旋轉動畫 */
+      animation: vinyl-spin 5s linear infinite;
       animation-play-state: paused;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
+    /* 唱片中心的標籤與孔洞 (帶有小花圖示) */
     .music-widget::before {
-      content: '';
-      position: absolute;
-      width: 24px;
-      height: 24px;
-      background: #d4af37;
+      content: '🪻';
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      background: rgba(255, 255, 255, 0.9);
       border-radius: 50%;
-      border: 2px solid #fff;
+      border: 1px solid rgba(125, 185, 222, 0.8);
+      box-shadow: 0 0 6px rgba(0,0,0,0.2);
     }
 
+    /* 懸停發光效果 */
+    .music-widget:hover {
+      box-shadow: 0 0 22px rgba(125, 185, 222, 0.8), 0 8px 25px rgba(0, 0, 0, 0.6);
+      transform: scale(1.05);
+    }
+
+    /* 播放時轉動 */
     .music-widget.playing {
       animation-play-state: running;
     }
@@ -330,8 +352,6 @@ header h1 {
     @keyframes vinyl-spin {
       100% { transform: rotate(360deg); }
     }
-
-    
 
     /* 密碼解鎖層 */
     #lock-screen {
@@ -658,7 +678,7 @@ header h1 {
     </div>
   </div>
 
- <!-- ✨ 樣式一：復古黑膠唱片音樂播放器按鈕 -->
+ <!-- ✨ 唯美透明勿忘草色黑膠唱片音樂播放器按鈕 -->
   <div class="music-widget" id="musicBtn" onclick="toggleMusic()" title="點擊播放/暫停音樂"></div>
 
   <audio id="bgm" src="background.mp3" loop autoplay></audio>
