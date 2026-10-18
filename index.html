@@ -292,86 +292,46 @@ header h1 {
     }
 
     /* =========================================================
-       ✨ 全域懸浮極簡膠囊音樂播放器樣式 (樣式二)
+       ✨ 樣式一：復古黑膠唱片音樂播放器 (Vinyl Record Style)
        ========================================================= */
     .music-widget {
       position: fixed;
       bottom: 25px; 
       right: 25px;
-      background: rgba(18, 24, 38, 0.85);
-      border: 1px solid rgba(255, 215, 0, 0.4);
-      border-radius: 30px;
+      width: 65px; 
+      height: 65px;
+      background: radial-gradient(circle, #222 30%, #111 70%, #000 100%);
+      border: 2px solid rgba(255, 215, 0, 0.6);
+      border-radius: 50%;
       z-index: 10;
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 8px 16px;
-      cursor: pointer;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      transition: all 0.3s ease;
-    }
-
-    .music-widget:hover {
-      border-color: rgba(255, 215, 0, 0.8);
-      box-shadow: 0 8px 30px rgba(255, 215, 0, 0.2);
-    }
-
-    .music-icon-btn {
-      font-size: 1.1rem;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
       justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+      animation: vinyl-spin 4s linear infinite;
+      animation-play-state: paused;
     }
 
-    .music-text-info {
-      display: flex;
-      flex-direction: column;
-      font-size: 0.75rem;
-      color: var(--text-sub);
-      letter-spacing: 1px;
+    .music-widget::before {
+      content: '';
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      background: #d4af37;
+      border-radius: 50%;
+      border: 2px solid #fff;
     }
 
-    .music-text-info span.title {
-      color: var(--primary);
-      font-weight: 600;
-      font-size: 0.8rem;
+    .music-widget.playing {
+      animation-play-state: running;
     }
 
-    /* 動態音波條容器 */
-    .waveform {
-      display: flex;
-      align-items: center;
-      gap: 3px;
-      height: 16px;
+    @keyframes vinyl-spin {
+      100% { transform: rotate(360deg); }
     }
 
-    .waveform span {
-      display: block;
-      width: 2.5px;
-      height: 4px;
-      background-color: var(--text-sub);
-      border-radius: 2px;
-      transition: height 0.2s ease;
-    }
-
-    /* 播放時音波跳動動畫 */
-    .music-widget.playing .waveform span {
-      background-color: #ffd700;
-      animation: wave-anim 0.8s ease-in-out infinite alternate;
-    }
-
-    .music-widget.playing .waveform span:nth-child(1) { animation-delay: 0.1s; }
-    .music-widget.playing .waveform span:nth-child(2) { animation-delay: 0.3s; }
-    .music-widget.playing .waveform span:nth-child(3) { animation-delay: 0.2s; }
-    .music-widget.playing .waveform span:nth-child(4) { animation-delay: 0.4s; }
-
-    @keyframes wave-anim {
-      0% { height: 4px; }
-      100% { height: 16px; }
-    }
+    
 
     /* 密碼解鎖層 */
     #lock-screen {
@@ -698,20 +658,8 @@ header h1 {
     </div>
   </div>
 
-  <!-- ✨ 全域懸浮極簡膠囊音樂播放器按鈕 (樣式二) -->
-  <div class="music-widget" id="musicBtn" onclick="toggleMusic()">
-    <div class="music-icon-btn">🎵</div>
-    <div class="music-text-info">
-      <span class="title">3rd Anniv.</span>
-      <span>Music Player</span>
-    </div>
-    <div class="waveform">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-  </div>
+ <!-- ✨ 樣式一：復古黑膠唱片音樂播放器按鈕 -->
+  <div class="music-widget" id="musicBtn" onclick="toggleMusic()" title="點擊播放/暫停音樂"></div>
 
   <audio id="bgm" src="background.mp3" loop autoplay></audio>
 
