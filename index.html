@@ -223,8 +223,8 @@
       margin-top: 10px;
     }
 
-    /* =========================================================
-       ✨ 完美等速循環旋轉的透明勿忘草色黑膠唱片播放器
+   /* =========================================================
+       ✨ 完美顯示圖片的透明勿忘草色黑膠唱片播放器
        ========================================================= */
     .music-widget {
       position: fixed;
@@ -232,26 +232,34 @@
       right: 25px;
       width: 75px; 
       height: 75px;
-      background-image: url('vinyl.png'); /* 唱片圖片檔名 */
+      
+      /* 確保圖片正確讀取並填滿 */
+      background-image: url('Forgetmenot-vinyl.png');
       background-size: cover;
       background-position: center;
+      
+      /* 拿掉透明背景限制，讓圖片原本的色彩與透明感完整呈現 */
       background-color: transparent !important;
       border: none !important;
       z-index: 10;
       cursor: pointer;
       border-radius: 50%;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(125, 185, 222, 0.4);
       
-      /* 使用 linear 達到完美無縫等速循環 */
+      /* 加上夢幻的勿忘草藍色微光陰影，營造透光感 */
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 18px rgba(125, 185, 222, 0.6);
+      
+      /* 完美等速旋轉設定 */
       animation: vinyl-spin 4s linear infinite;
       animation-play-state: paused;
       transition: transform 0.3s ease;
     }
 
+    /* 滑鼠移上去時放大 */
     .music-widget:hover {
       transform: scale(1.08);
     }
 
+    /* 播放中：開始旋轉 */
     .music-widget.playing {
       animation-play-state: running;
     }
