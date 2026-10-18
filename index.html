@@ -247,39 +247,43 @@ header h1 {
       display: inline-block;
       margin-top: 10px;
     }
-
-    /* 相片館頁面 */
-    .photo-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-    .polaroid-item {
-      background: rgba(18, 24, 38, 0.75) !important;
-      padding: 12px 12px 18px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(125, 185, 222, 0.4);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-      transform: rotate(-1deg);
-      transition: transform 0.3s ease;
+/* =========================================================
+       ✨ 完美等速循環旋轉的黑膠唱片播放器
+       ========================================================= */
+    .music-widget {
+      position: fixed;
+      bottom: 25px; 
+      right: 25px;
+      width: 75px; 
+      height: 75px;
+      /* background-image: url('妳的唱片圖片名稱.png'); */ /* 等圖做好後取消註解並填入檔名 */
+      background-size: cover;
+      background-position: center;
+      background-color: transparent !important;
+      border: none !important;
+      z-index: 10;
       cursor: pointer;
-      backdrop-filter: blur(6px);
+      border-radius: 50%;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(125, 185, 222, 0.4);
+      
+      /* 使用 linear 達到完美無縫等速循環 */
+      animation: vinyl-spin 4s linear infinite;
+      animation-play-state: paused;
+      transition: transform 0.3s ease;
     }
-    .polaroid-item img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      border-radius: 6px;
+
+    .music-widget:hover {
+      transform: scale(1.08);
     }
-    .polaroid-item:nth-child(even) { transform: rotate(1.5deg); }
-    .polaroid-caption {
-      margin-top: 12px;
-      text-align: center;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: #7DB9DE;
+
+    .music-widget.playing {
+      animation-play-state: running;
     }
-    
+
+    @keyframes vinyl-spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
     /* 真心話頁面 */
     .letter-box {
       background: transparent;
@@ -298,10 +302,9 @@ header h1 {
       position: fixed;
       bottom: 25px; 
       right: 25px;
-      width: 75px; /* 播放器的大小，可依喜好微調 */
+      width: 75px; 
       height: 75px;
-      /* 直接讀取妳剛上傳的透明黑膠圖片 */
-      background-image: url('forgetmenot-vinyl.png');
+      /* background-image: url('forgetmenot-vinyl.png'); */
       background-size: cover;
       background-position: center;
       background-color: transparent !important;
@@ -311,25 +314,26 @@ header h1 {
       border-radius: 50%;
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(125, 185, 222, 0.4);
       
-      /* 設定旋轉動畫 */
-      animation: vinyl-spin 5s linear infinite;
+      /* 使用 linear 達到完美無縫等速循環 */
+      animation: vinyl-spin 4s linear infinite;
       animation-play-state: paused;
       transition: transform 0.3s ease;
     }
 
-    /* 滑鼠移上去時稍微放大 */
     .music-widget:hover {
       transform: scale(1.08);
     }
 
-    /* 當播放音樂時 (狀態為 playing)，圖片就會開始旋轉 */
     .music-widget.playing {
       animation-play-state: running;
     }
 
     @keyframes vinyl-spin {
+      0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+    
+    
     /* 密碼解鎖層 */
     #lock-screen {
       position: fixed;
@@ -431,6 +435,56 @@ header h1 {
       height: auto !important;
       display: block !important;
       border-radius: 12px !important;
+    }
+
+    /* =========================================================
+       ✨ 回憶殿堂照片：勿忘草藍半透明濾鏡與點擊切換
+       ========================================================= */
+    .memory-photo-container {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .memory-photo-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+      opacity: 0.8; /* 預設 80% 透明度 */
+      transition: opacity 0.4s ease, filter 0.4s ease;
+    }
+
+    /* 勿忘草藍色半透明覆蓋層 */
+    .memory-photo-container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(125, 185, 222, 0.45), rgba(100, 160, 200, 0.3));
+      mix-blend-mode: overlay;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    /* 滑鼠移上去 或 點擊加上 .active 時：恢復彩色、100% 清晰 */
+    .memory-photo-container:hover img,
+    .memory-photo-container.active img {
+      opacity: 1;
+    }
+
+    .memory-photo-container:hover::after,
+    .memory-photo-container.active::after {
+      opacity: 0;
+    }
+
+    .memory-photo-container:hover {
+      transform: scale(1.02);
+      box-shadow: 0 12px 30px rgba(125, 185, 222, 0.5);
     }
   </style>
 </head>
