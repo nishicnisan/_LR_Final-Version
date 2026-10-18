@@ -291,60 +291,38 @@ header h1 {
       white-space: pre-line;
     }
 
-   /* =========================================================
-       ✨ 唯美透明勿忘草色黑膠唱片 (CSS 渲染版)
+ /* =========================================================
+       ✨ 圖片版：透明勿忘草色黑膠唱片播放器
        ========================================================= */
     .music-widget {
       position: fixed;
       bottom: 25px; 
       right: 25px;
-      width: 68px; 
-      height: 68px;
-      border-radius: 50%;
+      width: 75px; /* 播放器的大小，可依喜好微調 */
+      height: 75px;
+      /* 直接讀取妳剛上傳的透明黑膠圖片 */
+      background-image: url('forgetmenot-vinyl.png');
+      background-size: cover;
+      background-position: center;
+      background-color: transparent !important;
+      border: none !important;
       z-index: 10;
       cursor: pointer;
-      /* 勿忘草藍半透明質感與唱片細紋漸層 */
-      background: 
-        radial-gradient(circle, rgba(255, 255, 255, 0.9) 12%, rgba(125, 185, 222, 0.8) 13%, rgba(125, 185, 222, 0.35) 28%, rgba(100, 160, 200, 0.5) 50%, rgba(125, 185, 222, 0.25) 70%, rgba(125, 185, 222, 0.6) 100%);
-      border: 1.5px solid rgba(255, 255, 255, 0.65);
-      box-shadow: 
-        0 0 15px rgba(125, 185, 222, 0.5), 
-        0 8px 25px rgba(0, 0, 0, 0.5),
-        inset 0 0 10px rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      border-radius: 50%;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(125, 185, 222, 0.4);
       
       /* 設定旋轉動畫 */
       animation: vinyl-spin 5s linear infinite;
       animation-play-state: paused;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.3s ease;
     }
 
-    /* 唱片中心的標籤與孔洞 (帶有小花圖示) */
-    .music-widget::before {
-      content: '🪻';
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 26px;
-      height: 26px;
-      background: rgba(255, 255, 255, 0.9);
-      border-radius: 50%;
-      border: 1px solid rgba(125, 185, 222, 0.8);
-      box-shadow: 0 0 6px rgba(0,0,0,0.2);
-    }
-
-    /* 懸停發光效果 */
+    /* 滑鼠移上去時稍微放大 */
     .music-widget:hover {
-      box-shadow: 0 0 22px rgba(125, 185, 222, 0.8), 0 8px 25px rgba(0, 0, 0, 0.6);
-      transform: scale(1.05);
+      transform: scale(1.08);
     }
 
-    /* 播放時轉動 */
+    /* 當播放音樂時 (狀態為 playing)，圖片就會開始旋轉 */
     .music-widget.playing {
       animation-play-state: running;
     }
@@ -352,7 +330,6 @@ header h1 {
     @keyframes vinyl-spin {
       100% { transform: rotate(360deg); }
     }
-
     /* 密碼解鎖層 */
     #lock-screen {
       position: fixed;
