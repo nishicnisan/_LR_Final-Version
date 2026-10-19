@@ -11,17 +11,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
 
   <!-- ================= 網址預覽包裝設定 (Open Graph) ================= -->
-<meta property="og:title" content="🫐𝕵𝖔𝖞𝖊𝖚𝖝 𝟑 𝖆𝖓𝖘 𝖉'𝖆𝖒𝖔𝖚𝖗✶🌀">
-<meta property="og:description" content="ꧦ𐅁𐀸𐋠𛰙᭜𖫴𖫰𖫱𖫳𖫲𖫲𖫳𖫴𖫰𖫱꛰ﯩᩝ︪᭜𖫴𖫰𖫱𖫳𖫲𖫲𖫳𖫴𖫰𖫱꛰ީᩝ𛰚っ ≡ᴍᴇɪɴ ɢᴀɴᴢᴇꜱ ɢʟüᴄᴋ🎁">
-<!-- 1. 將圖片網址更新為新的 Vercel 專案網址 -->
-<meta property="og:image" content="https://lr-3rd-anniv-git-main-lr-7b3c.vercel.app/main-photo.jpg">
-<!-- 2. 將專案網址更新為新網址 -->
-<meta property="og:url" content="https://lr-3rd-anniv-git-main-lr-7b3c.vercel.app/">
-<meta property="og:type" content="website">
-<!-- ============================================================= -->
+  <meta property="og:title" content="🫐𝕵𝖔𝖞𝖊𝖚𝖝 𝟑 𝖆𝖓𝖘 𝖉'𝖆𝖒𝖔𝖚𝖗✶🌀">
+  <meta property="og:description" content="ꧦ𐅁𐀸𐋠𛰙᭜𖫴𖫰𖫱𖫳𖫲𖫲𖫳𖫴𖫰𖫱꛰ﯩᩝ︪᭜𖫴𖫰𖫱𖫳𖫲𖫲𖫳𖫴𖫰𖫱꛰ީᩝ𛰚っ ≡ᴍᴇɪɴ ɢᴀɴᴢᴇꜱ ɢʟüᴄᴋ🎁">
+  <meta property="og:image" content="https://lr-3rd-anniv-git-main-lr-7b3c.vercel.app/main-photo.jpg">
+  <meta property="og:url" content="https://lr-3rd-anniv-git-main-lr-7b3c.vercel.app/">
+  <meta property="og:type" content="website">
+  <!-- ============================================================= -->
 
   <style>
-    /* 載入 Polyamine 字體 */
+    /* 載入 Polyamine 與 Poppu 字體 */
     @font-face {
       font-family: 'Polyamine';
       src: url('Polyamine.ttf') format('truetype');
@@ -29,17 +27,78 @@
       font-style: normal;
     }
 
+    @font-face {
+      font-family: 'Poppu';
+      src: url('poppu.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    #days-count {
+      font-family: 'Poppu', sans-serif !important;
+    }
+
+    /* 🎵 星際黑膠全自動過場門戶 */
+    #music-gate {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0b1329; /* 深藍星空底色 */
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      opacity: 1;
+      transition: opacity 1.2s ease-in-out, visibility 1.2s ease-in-out;
+    }
+
+    /* 黑膠唱片外框與循環旋轉動畫 */
+    .vinyl-container {
+      position: relative;
+      width: 320px;
+      height: 320px;
+      animation: spinVinyl 8s linear infinite;
+    }
+
+    .vinyl-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.6));
+    }
+
+    @keyframes spinVinyl {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* 網頁上的底部指引文字（自動沿用網頁原本的字體） */
+    .gate-status-text {
+      color: #7DB9DE;
+      font-size: 0.95rem;
+      margin-top: 30px;
+      letter-spacing: 2px;
+      text-align: center;
+      animation: pulseText 1.5s infinite alternate;
+    }
+
+    @keyframes pulseText {
+      from { opacity: 0.5; }
+      to { opacity: 1; }
+    }
+
     /* =========================================================
-       1. 全域風格變數 (美學系統設定)
-       ========================================================= */
-   /* =========================================================
-       1. 全域風格變數 (美學系統設定 - 已全面改為勿忘草藍色系)
+       1. 全域風格變數 (美學系統設定 - 勿忘草藍色系)
        ========================================================= */
     :root {
       --bg-dark: #0b0f19;
       --card-bg: rgba(18, 24, 38, 0.75);
-      --card-border: rgba(125, 185, 222, 0.5); /* 框線改為勿忘草藍 */
-      --primary: #7DB9DE; /* 主色調改為勿忘草藍 */
+      --card-border: rgba(125, 185, 222, 0.5);
+      --primary: #7DB9DE;
       --primary-hover: #3A8FB7;
       --text-main: #f0f4f8;
       --text-sub: #a0aec0;
@@ -91,12 +150,11 @@
       margin-bottom: 20px;
     }
 
-   header h1 {
+    header h1 {
       font-family: 'Polyamine', var(--main-font);
       font-size: 5.5rem;
       color: var(--primary);
       letter-spacing: 10px;
-      /* 將原本的金光改成勿忘草藍色光暈 */
       text-shadow: 0 0 20px rgba(125, 185, 222, 0.6);
     }
 
@@ -147,7 +205,7 @@
       box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
     }
 
-   /* 頁面卡片容器 */
+    /* 頁面卡片容器 */
     .card-content { width: 100%; }
 
     /* 單一卡片頁面本體 */
@@ -156,11 +214,11 @@
       background: rgba(18, 24, 38, 0.1) !important;
       backdrop-filter: blur(6px) !important;
       -webkit-backdrop-filter: blur(6px) !important;
-      border: 1.5px solid rgba(125, 185, 222, 0.7) !important; /* 勿忘草藍邊框 */
+      border: 1.5px solid rgba(125, 185, 222, 0.7) !important;
       box-shadow: 
         0 0 16px rgba(125, 185, 222, 0.35), 
         0 0 32px rgba(125, 185, 222, 0.12), 
-        0 8px 32px 0 rgba(0, 0, 0, 0.4) !important; /* 勿忘草藍光暈 */
+        0 8px 32px 0 rgba(0, 0, 0, 0.4) !important;
       border-radius: 24px !important;
       padding: 30px 25px !important;
       animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
@@ -230,43 +288,31 @@
       margin-top: 10px;
     }
 
-   /* =========================================================
-       ✨ 完美顯示圖片的透明勿忘草色黑膠唱片播放器
-       ========================================================= */
+    /* ✨ 完美顯示圖片的透明勿忘草色黑膠唱片播放器 */
     .music-widget {
       position: fixed;
       bottom: 25px; 
       right: 25px;
       width: 75px; 
       height: 75px;
-      
-      /* 確保圖片正確讀取並填滿 */
       background-image: url('Forgetmenot-vinyl.png');
       background-size: cover;
       background-position: center;
-      
-      /* 拿掉透明背景限制，讓圖片原本的色彩與透明感完整呈現 */
       background-color: transparent !important;
       border: none !important;
       z-index: 10;
       cursor: pointer;
       border-radius: 50%;
-      
-      /* 加上夢幻的勿忘草藍色微光陰影，營造透光感 */
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 18px rgba(125, 185, 222, 0.6);
-      
-      /* 完美等速旋轉設定 */
       animation: vinyl-spin 4s linear infinite;
       animation-play-state: paused;
       transition: transform 0.3s ease;
     }
 
-    /* 滑鼠移上去時放大 */
     .music-widget:hover {
       transform: scale(1.08);
     }
 
-    /* 播放中：開始旋轉 */
     .music-widget.playing {
       animation-play-state: running;
     }
@@ -388,9 +434,7 @@
       border-radius: 12px !important;
     }
 
-    /* =========================================================
-       ✨ 回憶殿堂照片：勿忘草藍半透明濾鏡與點擊切換
-       ========================================================= */
+    /* 回憶殿堂照片相框 */
     .photo-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -413,11 +457,10 @@
       height: 220px;
       object-fit: cover;
       border-radius: 6px;
-      opacity: 0.8; /* 預設 80% 透明度 */
+      opacity: 0.8;
       transition: opacity 0.4s ease, filter 0.4s ease;
     }
 
-    /* 勿忘草藍色半透明覆蓋層 */
     .polaroid-item::after {
       content: '';
       position: absolute;
@@ -434,13 +477,8 @@
 
     .polaroid-item:nth-child(even) { transform: rotate(1.5deg); }
 
-    /* 滑鼠移上去時：藍色濾鏡淡出，照片恢復 100% 清晰彩色 */
-    .polaroid-item:hover img {
-      opacity: 1;
-    }
-    .polaroid-item:hover::after {
-      opacity: 0;
-    }
+    .polaroid-item:hover img { opacity: 1; }
+    .polaroid-item:hover::after { opacity: 0; }
     .polaroid-item:hover {
       transform: scale(1.02) rotate(0deg);
       box-shadow: 0 12px 30px rgba(125, 185, 222, 0.5);
@@ -454,7 +492,6 @@
       color: #7DB9DE;
     }
 
-    /* 💌 愛言葉專屬紀念照片樣式 */
     .letter-photo-card {
       background: rgba(18, 24, 38, 0.75) !important;
       padding: 12px 12px 18px 12px;
@@ -477,17 +514,17 @@
       transform: scale(1.02);
       box-shadow: 0 12px 30px rgba(125, 185, 222, 0.5);
     }
-    .letter-photo-caption {
-      margin-top: 12px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: #7DB9DE;
-      letter-spacing: 1px;
-    }
-    
   </style>
 </head>
 <body>
+
+  <!-- 🎵 音樂載入暨星際黑膠過場門戶 -->
+  <div id="music-gate">
+    <div class="vinyl-container">
+      <img src="planet.jpg" alt="Planet LR-1027 Vinyl" class="vinyl-img">
+    </div>
+    <div class="gate-status-text">✦ 專屬星際頻率連線中，請稍稍等待 ✦</div>
+  </div>
 
   <!-- 星空背景 Canvas -->
   <canvas id="stars"></canvas>
@@ -553,13 +590,13 @@
         <!-- 企鵝寶卡片底部紀念影片 -->
         <div class="video-container" style="margin-top: 20px;">
           <video id="about-video" 
-               autoplay 
-               loop 
-               muted 
-               playsinline 
-               preload="auto" 
-               controls
-               onplay="this.muted=true; this.volume=0;">
+                 autoplay 
+                 loop 
+                 muted 
+                 playsinline 
+                 preload="auto" 
+                 controls
+                 onplay="this.muted=true; this.volume=0;">
             <source src="Chu.mp4" type="video/mp4">
             您的瀏覽器不支援 HTML5 影片播放。
           </video>
@@ -572,7 +609,6 @@
           NOTRE TEMPS D'AMOUR ⏳ 
         </div>
 
-        <!-- 🌟 紀念圖區塊 -->
         <div style="text-align: center; margin: 15px 0 20px 0;">
           <img src="1027.jpg" alt="1027 紀念圖" 
                style="width: 280px; height: 200px; object-fit: cover; border-radius: 16px; border: 1.5px solid rgba(255, 255, 255, 0.6); box-shadow: 0 8px 24px rgba(0,0,0,0.4); cursor: pointer; transition: transform 0.3s;"
@@ -585,23 +621,19 @@
           </div>
         </div>
 
-        <!-- 上方相片條 -->
         <div style="margin: 15px 0;">
           <img src="LAI.jpg" class="photo-strip" alt="LAI" style="border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
         </div>
         
-        <!-- 溫柔的文字描述 -->
         <div style="font-size: 0.88rem; color: var(--text-sub); text-align: center; margin: 16px 0; letter-spacing: 0.8px;">
            ✦ 蹭蹭寶的日子正在不斷地熵增... ✦
         </div>
         
-        <!-- 倒數計時顯示 -->
         <div style="text-align: center; margin-top: 15px;">
           <div class="timer-days" id="days-count">0 DAYS</div>
           <div class="timer-detail-box" id="timer-detail" style="margin-bottom: 15px; display: inline-block;">00小時 00分 00秒</div>
         </div>
         
-        <!-- 下方相片條 -->
         <div style="margin: 15px 0 5px 0;">
           <img src="WU.jpg" class="photo-strip" alt="WU" style="border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
         </div>
@@ -613,7 +645,6 @@
           Le Palais<br>des Souvenirs 🎞️
         </div>
 
-        <!-- MP4 影片播放容器 -->
         <div class="video-container" style="margin-bottom: 20px;">
           <video id="gallery-video" 
                  autoplay 
@@ -628,7 +659,6 @@
           </video>
         </div>
         
-        <!-- 影片下方的文字敘述 -->
         <div style="text-align: center; margin-top: 8px; margin-bottom: 20px; font-size: 1rem; color: #7DB9DE; opacity: 0.9; letter-spacing: 1px;">
           怎摸口以那摸像隻可愛小企鵝ㄚ🐧
         </div>
@@ -681,7 +711,7 @@
         </div>
       </div>
 
-     <!-- 4. 愛言葉卡片 -->
+      <!-- 4. 愛言葉卡片 -->
       <div id="card-letter" class="page-card">
         <div class="card-header-title" style="font-size: 2.2rem; text-align: center;">LETTRE DU CŒUR 💌</div>
         
@@ -693,7 +723,7 @@
             雖然離我的理想還有些落差⋯<br>
             但現在這樣我也很滿足了！<br>
             ε( ε ˙³˙)з。○º<br>
-            ⇣
+            ⇣<br>
             不知不覺我們也迎來了第三個年頭ㄌ<br>
             不能接受爭執的我<br>
             也漸漸越來越能接受了ㄌ<br>
@@ -708,7 +738,7 @@
             ➤「要愛生活而不是生活的意義」<br>
             對於現狀我時不時總會感到憂心忡忡（🌀_🌀;）<br>
             可是寶會陪伴著迷茫的我<br>
-            分擔我的憂愁(  ૢ ͈̄   ͈̄ ૢ)…ﾓｼﾞﾓｼﾞ<br>
+            分擔我的憂愁(  ૢ ͈̄    ͈̄ ૢ)…ﾓｼﾞﾓｼﾞ<br>
             謝謝偶的寶！👩‍❤️‍💋‍👨<br>
             最重要的是陪伴、要永遠在一起𝓁ℴ𝓋ℯ...❤︎<br>
             約好了這個世界一起逛🌍⋆˚꩜｡🧑‍🤝‍🧑<br>
@@ -719,24 +749,34 @@
             最愛寶！！！——ʕ⸝⸝⸝˘³˘˶ʔﾁｭｰ︎💕︎
           </p>
           <p style="margin-top: 12px;">
-            越來越愛寶！<br>不能迷有寶！
+            越來越愛寶！<br>不能迷有寶！<br>
             要一直永遠有個寶！<br>
             Σ>―(〃°ω°〃)♡→<br>
             <span style="display: block; text-align: right; margin-top: 8px;">➤ ♾️ 永遠愛你的寶 ✶🐧💗</span>
           </p>
         </div>
 
-        <!-- 💌 愛言葉專屬紀念照片（放情書最下方，點擊可放大） -->
         <div class="letter-photo-card" onclick="openLightbox('main-photo.jpg', '')">
           <img src="main-photo.jpg" alt="愛言葉紀念照">
         </div>
 
       </div>
+    </div>
+  </div>
+
   <!-- ✨ 唯美透明勿忘草色黑膠唱片音樂播放器按鈕 -->
   <div class="music-widget" id="musicBtn" onclick="toggleMusic()" title="點擊播放/暫停音樂"></div>
 
-  <audio id="bgm" src="background.mp3" loop autoplay></audio>
+  <!-- 背景音樂播放器 -->
+  <audio id="bgm" src="background.mp3" loop preload="auto"></audio>
 
+  <!-- 放大檢視燈箱容器 -->
+  <div id="lightbox" class="lightbox-modal" onclick="closeLightbox()">
+    <img id="lightbox-img" src="" alt="大圖">
+    <div id="lightbox-text" class="lightbox-caption"></div>
+  </div>
+
+  <!-- 腳本邏輯區塊 -->
   <script>
     const CORRECT_PASSCODE = '1027';
     const START_DATE = new Date('2023-10-27T00:00:00');
@@ -749,6 +789,45 @@
     };
 
     let currentTab = 'about';
+    const bgm = document.getElementById('bgm');
+    const musicBtn = document.getElementById('musicBtn');
+
+    // 嘗試播放背景音樂
+    function startBackgroundMusic() {
+      if (bgm && bgm.paused) {
+        bgm.play().then(() => {
+          if (musicBtn) musicBtn.classList.add('playing');
+        }).catch(err => {
+          console.log("Autoplay waiting for user interaction:", err);
+        });
+      }
+    }
+
+    // 1. 頁面開頭嘗試播放，與手勢觸發播放
+    document.addEventListener('DOMContentLoaded', startBackgroundMusic);
+    ['click', 'touchstart', 'scroll'].forEach(eventType => {
+      window.addEventListener(eventType, startBackgroundMusic, { once: true });
+    });
+
+    // 2. 頁面完全載入後淡出門戶
+    window.addEventListener('load', function() {
+      startBackgroundMusic();
+      const gate = document.getElementById('music-gate');
+      const statusText = document.querySelector('.gate-status-text');
+
+      if (statusText) {
+        statusText.innerText = "✦ 頻率連線完成，準備進入專屬星際... ✨ ✦";
+      }
+
+      setTimeout(() => {
+        if (gate) {
+          gate.style.opacity = '0';
+          setTimeout(() => {
+            gate.style.visibility = 'hidden';
+          }, 1200);
+        }
+      }, 800);
+    });
 
     function checkPasscode() {
       const input = document.getElementById('passcode').value;
@@ -758,14 +837,7 @@
           document.getElementById('lock-screen').style.display = 'none';
         }, 800);
 
-        const bgm = document.getElementById('bgm');
-        const musicBtn = document.getElementById('musicBtn');
-        
-        bgm.play().then(() => {
-          musicBtn.classList.add('playing');
-        }).catch(error => {
-          console.log("等待使用者互動播放：", error);
-        });
+        startBackgroundMusic();
       }
     }
 
@@ -820,9 +892,6 @@
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    const bgm = document.getElementById('bgm');
-    const musicBtn = document.getElementById('musicBtn');
-    
     function toggleMusic() {
       if (bgm.paused) {
         bgm.play();
@@ -833,9 +902,10 @@
       }
     }
 
-    bgm.addEventListener('play', () => { musicBtn.classList.add('playing'); });
-    bgm.addEventListener('pause', () => { musicBtn.classList.remove('playing'); });
+    bgm.addEventListener('play', () => { if (musicBtn) musicBtn.classList.add('playing'); });
+    bgm.addEventListener('pause', () => { if (musicBtn) musicBtn.classList.remove('playing'); });
 
+    // 星空背景繪製
     const canvas = document.getElementById('stars');
     const ctx = canvas.getContext('2d');
     let stars = [];
@@ -870,15 +940,8 @@
       requestAnimationFrame(drawStars);
     }
     drawStars();
-  </script>
 
-  <!-- 放大檢視燈箱容器 -->
-  <div id="lightbox" class="lightbox-modal" onclick="closeLightbox()">
-    <img id="lightbox-img" src="" alt="大圖">
-    <div id="lightbox-text" class="lightbox-caption"></div>
-  </div>
-
-  <script>
+    // Lightbox 控制
     function openLightbox(imgSrc, captionText) {
       const modal = document.getElementById('lightbox');
       const img = document.getElementById('lightbox-img');
@@ -894,19 +957,5 @@
       modal.style.display = 'none';
     }
   </script>
-
-  <style>
-    @font-face {
-      font-family: 'Poppu';
-      src: url('poppu.ttf') format('truetype');
-      font-weight: normal;
-      font-style: normal;
-    }
-
-    #days-count {
-      font-family: 'Poppu', sans-serif !important;
-    }
-  </style>
-
 </body>
 </html>
