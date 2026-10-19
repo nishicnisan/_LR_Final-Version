@@ -10,16 +10,15 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
 
-  <!-- ================= 網址預覽包裝設定 (Open Graph) ================= -->
+  <!-- Open Graph 網址預覽設定 -->
   <meta property="og:title" content="🫐𝕵𝖔𝖞𝖊𝖚𝖝 𝟑 𝖆𝖓𝖘 𝖉'𝖆𝖒𝖔𝖚𝖗✶🌀">
   <meta property="og:description" content="ꧦ𐅁𐀸𐋠𛰙᭜𖫴𖫰𖫱𖫳𖫲𖫲𖫳𖫴𖫰𖫱꛰ﯩᩝ︪᭜𖫴𖫰𖫱𖫳𖫲𖫲𖫳𖫴𖫰𖫱꛰ީᩝ𛰚っ ≡ᴍᴇɪɴ ɢᴀɴᴢᴇꜱ ɢʟüᴄᴋ🎁">
   <meta property="og:image" content="https://lr-3rd-anniv-git-main-lr-7b3c.vercel.app/main-photo.jpg">
   <meta property="og:url" content="https://lr-3rd-anniv-git-main-lr-7b3c.vercel.app/">
   <meta property="og:type" content="website">
-  <!-- ============================================================= -->
 
   <style>
-    /* 載入 Polyamine 與 Poppu 字體 */
+    /* 自訂字型定義 */
     @font-face {
       font-family: 'Polyamine';
       src: url('Polyamine.ttf') format('truetype');
@@ -34,66 +33,7 @@
       font-style: normal;
     }
 
-    #days-count {
-      font-family: 'Poppu', sans-serif !important;
-    }
-
-    /* 🎵 星際黑膠全自動過場門戶 */
-    #music-gate {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #0b1329; /* 深藍星空底色 */
-      backdrop-filter: blur(12px);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 10000;
-      opacity: 1;
-      transition: opacity 1.2s ease-in-out, visibility 1.2s ease-in-out;
-    }
-
-    /* 黑膠唱片外框與循環旋轉動畫 */
-    .vinyl-container {
-      position: relative;
-      width: 320px;
-      height: 320px;
-      animation: spinVinyl 8s linear infinite;
-    }
-
-    .vinyl-img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.6));
-    }
-
-    @keyframes spinVinyl {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    /* 網頁上的底部指引文字（自動沿用網頁原本的字體） */
-    .gate-status-text {
-      color: #7DB9DE;
-      font-size: 0.95rem;
-      margin-top: 30px;
-      letter-spacing: 2px;
-      text-align: center;
-      animation: pulseText 1.5s infinite alternate;
-    }
-
-    @keyframes pulseText {
-      from { opacity: 0.5; }
-      to { opacity: 1; }
-    }
-
-    /* =========================================================
-       1. 全域風格變數 (美學系統設定 - 勿忘草藍色系)
-       ========================================================= */
+    /* 全域風格變數 */
     :root {
       --bg-dark: #0b0f19;
       --card-bg: rgba(18, 24, 38, 0.75);
@@ -105,7 +45,11 @@
       --main-font: 'Zen Maru Gothic', 'Noto Sans TC', sans-serif;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
     body {
       font-family: var(--main-font);
@@ -125,13 +69,143 @@
     /* 動態星空 Canvas 背景 */
     canvas#stars {
       position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       z-index: 1;
       pointer-events: none;
     }
 
-    /* 主容器 */
+    /* 統一旋轉動畫 */
+    @keyframes vinyl-spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* 🎵 全螢幕星際黑膠載入過場門戶 (#music-gate) */
+    #music-gate {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(11, 19, 41, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 1.2s ease-in-out, visibility 1.2s ease-in-out;
+    }
+
+    /* 大黑膠容器：風格效果與小播放器完全一致 */
+    .vinyl-container {
+      position: relative;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background-image: url('planet.jpg');
+      background-size: cover;
+      background-position: center;
+      background-color: transparent !important;
+      border: none !important;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 18px rgba(125, 185, 222, 0.6);
+      animation: vinyl-spin 4s linear infinite;
+      animation-play-state: running;
+      cursor: pointer;
+    }
+
+    /* 門戶狀態提示文字 */
+    .gate-status-text {
+      color: var(--primary);
+      font-family: var(--main-font);
+      font-size: 0.95rem;
+      margin-top: 35px;
+      letter-spacing: 2px;
+      text-align: center;
+      max-width: 80%;
+      line-height: 1.6;
+      animation: pulseText 1.5s infinite alternate;
+    }
+
+    @keyframes pulseText {
+      from { opacity: 0.5; }
+      to { opacity: 1; }
+    }
+
+    /* 🔒 密碼解鎖畫面 (#lock-screen) */
+    #lock-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(11, 15, 25, 0.96);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
+
+    .passcode-title {
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    .passcode-input {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--primary);
+      border-radius: 20px;
+      padding: 10px 20px;
+      color: #fff;
+      font-size: 1.5rem;
+      text-align: center;
+      letter-spacing: 6px;
+      outline: none;
+      width: 180px;
+      font-family: var(--main-font);
+    }
+
+    /* 🎛️ 常駐浮動黑膠音樂播放器 (.music-widget) */
+    .music-widget {
+      position: fixed;
+      bottom: 25px; 
+      right: 25px;
+      width: 75px; 
+      height: 75px;
+      background-image: url('Forgetmenot-vinyl.png');
+      background-size: cover;
+      background-position: center;
+      background-color: transparent !important;
+      border: none !important;
+      z-index: 10;
+      cursor: pointer;
+      border-radius: 50%;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 18px rgba(125, 185, 222, 0.6);
+      animation: vinyl-spin 4s linear infinite;
+      animation-play-state: paused;
+      transition: transform 0.3s ease;
+    }
+
+    .music-widget:hover {
+      transform: scale(1.08);
+    }
+
+    .music-widget.playing {
+      animation-play-state: running;
+    }
+
+    /* 主應用程式 UI */
     .app-container {
       position: relative;
       z-index: 2;
@@ -143,7 +217,6 @@
       align-items: center;
     }
 
-    /* 頂部 Header */
     header {
       text-align: center;
       margin-top: 15px;
@@ -165,7 +238,7 @@
       header h1 { font-size: 4.5rem; letter-spacing: 5px; }
     }
 
-    /* 導覽頁籤 (Navigation Tabs) */
+    /* 頁籤 Tab Nav */
     .nav-tabs {
       display: flex;
       width: 100%;
@@ -205,10 +278,8 @@
       box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
     }
 
-    /* 頁面卡片容器 */
     .card-content { width: 100%; }
 
-    /* 單一卡片頁面本體 */
     .page-card {
       display: none !important;
       background: rgba(18, 24, 38, 0.1) !important;
@@ -231,7 +302,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* 卡片標題 */
     .card-header-title {
       font-family: 'Polyamine', var(--main-font);
       font-size: 1.35rem;
@@ -244,24 +314,26 @@
       justify-content: center;
       gap: 8px;
     }
-    
-    /* 關於我們頁面 */
+
+    /* 頁面特定元素 */
     .about-info-box {
       line-height: 1.8;
       color: var(--text-main);
       font-size: 0.95rem;
       text-align: center;
     }
+
     .profile-badge {
       display: flex;
       justify-content: space-around;
       margin: 20px 0;
       text-align: center;
     }
+
     .avatar-placeholder {
       width: 70px; height: 70px;
       border-radius: 50%;
-      background: rgba(255, 215, 0, 0.15);
+      background: transparent !important;
       border: 2px dashed var(--primary);
       display: flex;
       align-items: center;
@@ -270,7 +342,10 @@
       margin: 0 auto 8px;
     }
 
-    /* 計時器頁面 */
+    #days-count {
+      font-family: 'Poppu', sans-serif !important;
+    }
+
     .timer-days {
       font-size: 2.8rem;
       font-weight: 700;
@@ -278,6 +353,7 @@
       margin: 10px 0;
       letter-spacing: 2px;
     }
+
     .timer-detail-box {
       font-size: 0.95rem;
       color: var(--text-sub);
@@ -288,85 +364,6 @@
       margin-top: 10px;
     }
 
-    /* ✨ 完美顯示圖片的透明勿忘草色黑膠唱片播放器 */
-    .music-widget {
-      position: fixed;
-      bottom: 25px; 
-      right: 25px;
-      width: 75px; 
-      height: 75px;
-      background-image: url('Forgetmenot-vinyl.png');
-      background-size: cover;
-      background-position: center;
-      background-color: transparent !important;
-      border: none !important;
-      z-index: 10;
-      cursor: pointer;
-      border-radius: 50%;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4), 0 0 18px rgba(125, 185, 222, 0.6);
-      animation: vinyl-spin 4s linear infinite;
-      animation-play-state: paused;
-      transition: transform 0.3s ease;
-    }
-
-    .music-widget:hover {
-      transform: scale(1.08);
-    }
-
-    .music-widget.playing {
-      animation-play-state: running;
-    }
-
-    @keyframes vinyl-spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* 真心話頁面 */
-    .letter-box {
-      background: transparent;
-      border: none;
-      border-radius: 12px;
-      padding: 20px;
-      line-height: 1.8;
-      font-size: 0.95rem;
-      white-space: pre-line;
-    }
-    
-    /* 密碼解鎖層 */
-    #lock-screen {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(11, 15, 25, 0.96);
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      transition: opacity 0.8s ease;
-    }
-    .passcode-title {
-      font-size: 1.1rem;
-      letter-spacing: 2px;
-      margin-bottom: 20px;
-      color: var(--primary);
-    }
-    .passcode-input {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid var(--primary);
-      border-radius: 20px;
-      padding: 10px 20px;
-      color: #fff;
-      font-size: 1.5rem;
-      text-align: center;
-      letter-spacing: 6px;
-      outline: none;
-      width: 180px;
-      font-family: var(--main-font);
-    }
-    
-    /* 獨立相片條樣式 */
     .photo-strip {
       width: 100%;
       max-height: 120px;
@@ -376,44 +373,6 @@
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
       display: block;
       opacity: 0.6;
-    }
-
-    /* 點擊放大檢視器（Lightbox）樣式 */
-    .lightbox-modal {
-      display: none;
-      position: fixed;
-      z-index: 9999;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0, 0, 0, 0.85);
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      cursor: pointer;
-    }
-    .lightbox-modal img {
-      max-width: 90%;
-      max-height: 80vh;
-      border-radius: 8px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-    .lightbox-caption {
-      color: #fff;
-      margin-top: 15px;
-      font-size: 1.1rem;
-      font-weight: 500;
-    }
-
-    .page-card *, 
-    .page-card div, 
-    .avatar-box, 
-    .letter-box, 
-    .timer-box {
-      background-color: transparent !important;
-    }
-
-    .avatar-placeholder, .avatar-container {
-      background: transparent !important;
     }
 
     .video-container {
@@ -434,12 +393,13 @@
       border-radius: 12px !important;
     }
 
-    /* 回憶殿堂照片相框 */
+    /* 回憶殿堂 Polaroid 相框 */
     .photo-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 20px;
     }
+
     .polaroid-item {
       position: relative;
       background: rgba(18, 24, 38, 0.75) !important;
@@ -452,6 +412,7 @@
       cursor: pointer;
       overflow: hidden;
     }
+
     .polaroid-item img {
       width: 100%;
       height: 220px;
@@ -476,7 +437,6 @@
     }
 
     .polaroid-item:nth-child(even) { transform: rotate(1.5deg); }
-
     .polaroid-item:hover img { opacity: 1; }
     .polaroid-item:hover::after { opacity: 0; }
     .polaroid-item:hover {
@@ -492,6 +452,16 @@
       color: #7DB9DE;
     }
 
+    .letter-box {
+      background: transparent;
+      border: none;
+      border-radius: 12px;
+      padding: 20px;
+      line-height: 1.8;
+      font-size: 0.95rem;
+      white-space: pre-line;
+    }
+
     .letter-photo-card {
       background: rgba(18, 24, 38, 0.75) !important;
       padding: 12px 12px 18px 12px;
@@ -503,6 +473,7 @@
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
+
     .letter-photo-card img {
       width: 100%;
       max-height: 280px;
@@ -510,39 +481,69 @@
       border-radius: 6px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
+
     .letter-photo-card:hover {
       transform: scale(1.02);
       box-shadow: 0 12px 30px rgba(125, 185, 222, 0.5);
+    }
+
+    /* Lightbox Modal */
+    .lightbox-modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .lightbox-modal img {
+      max-width: 90%;
+      max-height: 80vh;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .lightbox-caption {
+      color: #fff;
+      margin-top: 15px;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .page-card *, .page-card div {
+      background-color: transparent !important;
     }
   </style>
 </head>
 <body>
 
-  <!-- 🎵 音樂載入暨星際黑膠過場門戶 -->
+  <!-- 🎵 1. 全螢幕黑膠載入門戶 (#music-gate) -->
   <div id="music-gate">
-    <div class="vinyl-container">
-      <img src="planet.jpg" alt="Planet LR-1027 Vinyl" class="vinyl-img">
-    </div>
-    <div class="gate-status-text">✦ 專屬星際頻率連線中，請稍稍等待 ✦</div>
+    <div class="vinyl-container" id="gateVinyl" onclick="toggleMusic()" title="點擊暫停音樂並開啟解鎖"></div>
+    <div class="gate-status-text" id="gateStatusText">✦ 專屬星際頻率連線中，請稍稍等待 ✦</div>
   </div>
 
-  <!-- 星空背景 Canvas -->
-  <canvas id="stars"></canvas>
-
-  <!-- 解鎖畫面 -->
-  <div id="lock-screen">
-    <div class="passcode-title">🕊️_ᴇɴᴛᴇʀ ᴏᴜʀ ᴀɴɴɪᴠᴇʀꜱᴀʀʏ_💌</div>
+  <!-- 🔒 2. 密碼解鎖層 (#lock-screen) -->
+  <div id="lock-screen" style="display: none;">
+    <div class="passcode-title">🕊️_ᴇɴᴛᴇʀ ᴏᴜ戶 ᴀɴɴɪᴠᴇʀꜱᴀʀʏ_💌</div>
     <input type="password" id="passcode" class="passcode-input" maxlength="4" placeholder="••••" oninput="checkPasscode()">
   </div>
 
-  <!-- 主應用程式區域 -->
+  <!-- 動態星空背景 -->
+  <canvas id="stars"></canvas>
+
+  <!-- 3. 主內容區塊 -->
   <div class="app-container">
-    
     <header>
       <h1>AIMER L'HOMME RÉEL.</h1>
     </header>
 
-    <!-- 頁籤選單 Bar -->
+    <!-- 頁籤選單 -->
     <nav class="nav-tabs">
       <button class="tab-btn active" onclick="switchTab('about', this)">
         <span class="tab-icon"> 🐧 </span>
@@ -565,7 +566,7 @@
     <!-- 卡片內容區 -->
     <div class="card-content">
       
-      <!-- 1. 關於我們卡片 -->
+      <!-- 企鵝寶 Tab (About) -->
       <div id="card-about" class="page-card active">
         <div class="card-header-title" style="font-size: 2.2rem;">𝜗𝜚⸝⸝꙳About the Two Little Penguins</div>
         <div class="profile-badge">
@@ -587,23 +588,15 @@
           </p>
         </div>
 
-        <!-- 企鵝寶卡片底部紀念影片 -->
         <div class="video-container" style="margin-top: 20px;">
-          <video id="about-video" 
-                 autoplay 
-                 loop 
-                 muted 
-                 playsinline 
-                 preload="auto" 
-                 controls
-                 onplay="this.muted=true; this.volume=0;">
+          <video id="about-video" autoplay loop muted playsinline preload="auto" controls onplay="this.muted=true; this.volume=0;">
             <source src="Chu.mp4" type="video/mp4">
             您的瀏覽器不支援 HTML5 影片播放。
           </video>
         </div>
       </div>
         
-      <!-- 2. 時光似沙漏卡片 -->
+      <!-- 時光似沙漏 Tab (Timer) -->
       <div id="card-timer" class="page-card">
         <div class="card-header-title" style="font-size: 2.2rem; text-align: center;">
           NOTRE TEMPS D'AMOUR ⏳ 
@@ -622,7 +615,7 @@
         </div>
 
         <div style="margin: 15px 0;">
-          <img src="LAI.jpg" class="photo-strip" alt="LAI" style="border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+          <img src="LAI.jpg" class="photo-strip" alt="LAI">
         </div>
         
         <div style="font-size: 0.88rem; color: var(--text-sub); text-align: center; margin: 16px 0; letter-spacing: 0.8px;">
@@ -635,25 +628,18 @@
         </div>
         
         <div style="margin: 15px 0 5px 0;">
-          <img src="WU.jpg" class="photo-strip" alt="WU" style="border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+          <img src="WU.jpg" class="photo-strip" alt="WU">
         </div>
       </div>
     
-      <!-- 3. 回憶殿堂卡片 -->
+      <!-- 回憶殿堂 Tab (Gallery) -->
       <div id="card-gallery" class="page-card">
         <div class="card-header-title" style="font-size: 2.2rem; text-align: center;">
           Le Palais<br>des Souvenirs 🎞️
         </div>
 
         <div class="video-container" style="margin-bottom: 20px;">
-          <video id="gallery-video" 
-                 autoplay 
-                 loop 
-                 muted 
-                 playsinline 
-                 preload="auto" 
-                 controls
-                 onplay="this.muted=true; this.volume=0;">
+          <video id="gallery-video" autoplay loop muted playsinline preload="auto" controls onplay="this.muted=true; this.volume=0;">
             <source src="bebe.mp4" type="video/mp4">
             您的瀏覽器不支援 HTML5 影片播放。
           </video>
@@ -674,7 +660,7 @@
             <div class="polaroid-caption">第一次一起旅行...花蓮遊🌼*･</div>
           </div>
 
-           <div class="polaroid-item" onclick="openLightbox('260221.jpg', '下次要多拍這個角度的照片!')">
+          <div class="polaroid-item" onclick="openLightbox('260221.jpg', '下次要多拍這個角度的照片!')">
             <img src="260221.jpg" alt="20260221南部走春">
             <div class="polaroid-caption">2026年南部走春ーー大圓滿(⸝⸝¯ᵕ¯⸝⸝)🧨</div>
           </div>
@@ -711,13 +697,12 @@
         </div>
       </div>
 
-      <!-- 4. 愛言葉卡片 -->
+      <!-- 愛言葉 Tab (Letter) -->
       <div id="card-letter" class="page-card">
         <div class="card-header-title" style="font-size: 2.2rem; text-align: center;">LETTRE DU CŒUR 💌</div>
         
         <div class="letter-box" style="line-height: 1.8; font-size: 0.95rem; text-align: left; padding: 15px;">
           <p style="margin-bottom: 12px;">偶最口愛的星寶：</p>
-          
           <p style="margin-bottom: 12px;">
             呼！花了好多時間和心力才打完成ㄉ<br>
             雖然離我的理想還有些落差⋯<br>
@@ -759,24 +744,24 @@
         <div class="letter-photo-card" onclick="openLightbox('main-photo.jpg', '')">
           <img src="main-photo.jpg" alt="愛言葉紀念照">
         </div>
-
       </div>
+
     </div>
   </div>
 
-  <!-- ✨ 唯美透明勿忘草色黑膠唱片音樂播放器按鈕 -->
+  <!-- 4. 常駐浮動黑膠唱片音樂播放器 (.music-widget) -->
   <div class="music-widget" id="musicBtn" onclick="toggleMusic()" title="點擊播放/暫停音樂"></div>
 
   <!-- 背景音樂播放器 -->
   <audio id="bgm" src="background.mp3" loop preload="auto"></audio>
 
-  <!-- 放大檢視燈箱容器 -->
+  <!-- Lightbox 燈箱容器 -->
   <div id="lightbox" class="lightbox-modal" onclick="closeLightbox()">
     <img id="lightbox-img" src="" alt="大圖">
     <div id="lightbox-text" class="lightbox-caption"></div>
   </div>
 
-  <!-- 腳本邏輯區塊 -->
+  <!-- JavaScript 邏輯控制 -->
   <script>
     const CORRECT_PASSCODE = '1027';
     const START_DATE = new Date('2023-10-27T00:00:00');
@@ -791,56 +776,88 @@
     let currentTab = 'about';
     const bgm = document.getElementById('bgm');
     const musicBtn = document.getElementById('musicBtn');
+    const gateVinyl = document.getElementById('gateVinyl');
+    let isWaitingForPause = true;
 
-    // 嘗試播放背景音樂
+    // 嘗試自動播放背景音樂
     function startBackgroundMusic() {
       if (bgm && bgm.paused) {
         bgm.play().then(() => {
-          if (musicBtn) musicBtn.classList.add('playing');
+          syncVinylState(true);
         }).catch(err => {
-          console.log("Autoplay waiting for user interaction:", err);
+          console.log("Autoplay waiting for user gesture:", err);
         });
       }
     }
 
-    // 1. 頁面開頭嘗試播放，與手勢觸發播放
+    // 同步黑膠旋轉狀態
+    function syncVinylState(isPlaying) {
+      if (isPlaying) {
+        if (musicBtn) musicBtn.classList.add('playing');
+        if (gateVinyl) gateVinyl.style.animationPlayState = 'running';
+      } else {
+        if (musicBtn) musicBtn.classList.remove('playing');
+        if (gateVinyl) gateVinyl.style.animationPlayState = 'paused';
+      }
+    }
+
+    // 1. 頁面開頭與手勢觸發音樂播放
     document.addEventListener('DOMContentLoaded', startBackgroundMusic);
     ['click', 'touchstart', 'scroll'].forEach(eventType => {
       window.addEventListener(eventType, startBackgroundMusic, { once: true });
     });
 
-    // 2. 頁面完全載入後淡出門戶
+    // 2. 頁面完全載入後更新門戶提示文字，保持旋轉並等待手動暫停
     window.addEventListener('load', function() {
       startBackgroundMusic();
-      const gate = document.getElementById('music-gate');
-      const statusText = document.querySelector('.gate-status-text');
-
+      const statusText = document.getElementById('gateStatusText');
       if (statusText) {
-        statusText.innerText = "✦ 頻率連線完成，準備進入專屬星際... ✨ ✦";
+        statusText.innerText = "✦ 專屬星際頻率連線完成✨ 為了通訊安全，請手動暫停播放音樂後，即可輸入密碼解鎖通訊 ✦";
       }
+    });
 
-      setTimeout(() => {
+    // 3. 監聽音樂暫停事件：於過場門戶階段，使用者手動暫停後觸發解鎖頁面
+    bgm.addEventListener('pause', () => {
+      syncVinylState(false);
+
+      if (isWaitingForPause) {
+        isWaitingForPause = false;
+        const gate = document.getElementById('music-gate');
+        const lockScreen = document.getElementById('lock-screen');
+
         if (gate) {
           gate.style.opacity = '0';
           setTimeout(() => {
             gate.style.visibility = 'hidden';
+            if (lockScreen) {
+              lockScreen.style.display = 'flex';
+              setTimeout(() => { lockScreen.style.opacity = '1'; }, 50);
+            }
           }, 1200);
         }
-      }, 800);
+      }
     });
 
+    bgm.addEventListener('play', () => { 
+      syncVinylState(true); 
+    });
+
+    // 4. 密碼驗證邏輯
     function checkPasscode() {
       const input = document.getElementById('passcode').value;
       if (input === CORRECT_PASSCODE) {
-        document.getElementById('lock-screen').style.opacity = '0';
-        setTimeout(() => {
-          document.getElementById('lock-screen').style.display = 'none';
-        }, 800);
-
+        const lockScreen = document.getElementById('lock-screen');
+        if (lockScreen) {
+          lockScreen.style.opacity = '0';
+          setTimeout(() => {
+            lockScreen.style.display = 'none';
+          }, 800);
+        }
         startBackgroundMusic();
       }
     }
 
+    // 切換頁籤
     function switchTab(tabId, btnElement) {
       currentTab = tabId;
 
@@ -854,7 +871,7 @@
       const aboutVideo = document.getElementById('about-video');
       if (aboutVideo) {
         if (tabId === 'about') {
-          aboutVideo.play().catch(err => { console.log(err); });
+          aboutVideo.play().catch(err => console.log(err));
         } else {
           aboutVideo.pause();
         }
@@ -863,20 +880,21 @@
       const galleryVideo = document.getElementById('gallery-video');
       if (galleryVideo) {
         if (tabId === 'gallery') {
-          galleryVideo.play().catch(err => { console.log(err); });
+          galleryVideo.play().catch(err => console.log(err));
         } else {
           galleryVideo.pause();
         }
       }
 
       const targetMusic = musicMap[tabId];
-      if (targetMusic && bgm.src.indexOf(targetMusic) === -1) {
+      if (targetMusic && bgm.src.indexOf(encodeURI(targetMusic)) === -1 && bgm.src.indexOf(targetMusic) === -1) {
         const isPlaying = !bgm.paused;
         bgm.src = targetMusic;
         if (isPlaying) bgm.play();
       }
     }
 
+    // 時光沙漏計時器
     function updateTimer() {
       const now = new Date();
       const diff = now - START_DATE;
@@ -886,26 +904,24 @@
       const minutes = Math.floor((diff / 1000 / 60) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
 
-      document.getElementById('days-count').innerText = `${days} DAYS`;
-      document.getElementById('timer-detail').innerText = `${hours}小時 ${minutes}分 ${seconds}秒`;
+      const daysElem = document.getElementById('days-count');
+      const detailElem = document.getElementById('timer-detail');
+      if (daysElem) daysElem.innerText = `${days} DAYS`;
+      if (detailElem) detailElem.innerText = `${hours}小時 ${minutes}分 ${seconds}秒`;
     }
     setInterval(updateTimer, 1000);
     updateTimer();
 
+    // 控制音樂播放與暫停
     function toggleMusic() {
       if (bgm.paused) {
         bgm.play();
-        musicBtn.classList.add('playing');
       } else {
         bgm.pause();
-        musicBtn.classList.remove('playing');
       }
     }
 
-    bgm.addEventListener('play', () => { if (musicBtn) musicBtn.classList.add('playing'); });
-    bgm.addEventListener('pause', () => { if (musicBtn) musicBtn.classList.remove('playing'); });
-
-    // 星空背景繪製
+    // 動態星空背景
     const canvas = document.getElementById('stars');
     const ctx = canvas.getContext('2d');
     let stars = [];
@@ -941,7 +957,7 @@
     }
     drawStars();
 
-    // Lightbox 控制
+    // Lightbox 功能
     function openLightbox(imgSrc, captionText) {
       const modal = document.getElementById('lightbox');
       const img = document.getElementById('lightbox-img');
