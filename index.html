@@ -525,12 +525,12 @@
   <!-- 🎵 1. 全螢幕黑膠載入門戶 (#music-gate) -->
   <div id="music-gate">
     <div class="vinyl-container" id="gateVinyl" onclick="toggleMusic()" title="點擊暫停音樂並開啟解鎖"></div>
-    <div class="gate-status-text" id="gateStatusText">✦ 專屬星際頻率連線中，請稍稍等待 ✦</div>
+    <div class="gate-status-text" id="gateStatusText">𓄹📡•.*【電波発信中⋯】<br>✦ LR星際總部作業處理中⋯<br>請先聽聽音樂稍待片刻(*ᴗ͈ˬᴗ͈)ꕤ ✦</div>
   </div>
 
   <!-- 🔒 2. 密碼解鎖層 (#lock-screen) -->
   <div id="lock-screen" style="display: none;">
-    <div class="passcode-title">🕊️_ᴇɴᴛᴇʀ ᴏᴜ戶 ᴀɴɴɪᴠᴇʀꜱᴀʀʏ_💌</div>
+    <div class="passcode-title">🕊️_ᴇɴᴛᴇʀ ᴏᴜʀ ᴀɴɴɪᴠᴇʀꜱᴀʀʏ_💌</div>
     <input type="password" id="passcode" class="passcode-input" maxlength="4" placeholder="••••" oninput="checkPasscode()">
   </div>
 
@@ -807,15 +807,21 @@
       window.addEventListener(eventType, startBackgroundMusic, { once: true });
     });
 
-    // 2. 頁面完全載入後更新門戶提示文字，保持旋轉並等待手動暫停
+    // 2. 頁面完全載入後：讓黑膠先轉個幾秒，再溫柔顯示切換後的提示文字
     window.addEventListener('load', function() {
       startBackgroundMusic();
-      const statusText = document.getElementById('gateStatusText');
-      if (statusText) {
-        statusText.innerText = "✦ 專屬星際頻率連線完成✨ 為了通訊安全，請手動暫停播放音樂後，即可輸入密碼解鎖通訊 ✦";
-      }
-    });
+      const statusText = document.querySelector('.gate-status-text');
 
+      // 這裡的 2000 代表延遲 2 秒（2000毫秒），妳可以自行改成 3000 (3秒) 或 4000 (4秒)
+      setTimeout(() => {
+        if (statusText) {
+          statusText.innerHTML = "𓄹📡•.*【電波発信完了—！】<br>接下來請先點擊唱片暫停音樂🎶<br>📆再輸入我們的紀念日👩‍❤️‍👨";
+        }
+        // 標記進入等待手動暫停階段
+        isWaitingForPause = true;
+      }, 6000); 
+    });
+    
     // 3. 監聽音樂暫停事件：於過場門戶階段，使用者手動暫停後觸發解鎖頁面
     bgm.addEventListener('pause', () => {
       syncVinylState(false);
