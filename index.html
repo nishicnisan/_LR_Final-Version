@@ -82,17 +82,19 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
-
-    /* 🎵 1. 全螢幕星際黑膠載入過場門戶 (#music-gate) */
+/* 🎵 1. 全螢幕星際黑膠載入過場門戶 (#music-gate) */
     #music-gate {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(11, 19, 41, 0.95);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      /* 套用現有的 bg.jpg 作為背景圖，並加上一層微微的深色半透明覆蓋，讓黑膠與文字更醒目 */
+      background: linear-gradient(rgba(11, 15, 25, 0.75), rgba(11, 15, 25, 0.75)), url('bg.jpg');
+      background-size: cover;
+      background-position: center;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -550,7 +552,7 @@
     <div class="vinyl-container" id="gateVinyl" onclick="toggleMusic()" title="點擊暫停音樂並進入解鎖">
       <img src="planet.jpg" alt="Planet LR-1027 Vinyl" class="vinyl-img" style="background-image: url('Forgetmenot-vinyl.png'); background-size: cover; background-position: center; border-radius: 50%;">
     </div>
-    <div class="gate-status-text" id="gateStatusText">𓄹📡•.*【電波発信中⋯】<br>✦ LR星際總部作業處理中⋯<br>請點擊唱片暫停音樂進入解鎖(*ᴗ͈ˬᴗ͈)ꕤ ✦</div>
+    <div class="gate-status-text" id="gateStatusText">𓄹📡•.*【電波発信中⋯】<br>請點擊唱片與LR星際總部聯繫⋯✦</div>
   </div>
 
   <!-- 🔒 2. 密碼解鎖層 (#lock-screen) -->
@@ -833,7 +835,7 @@
 
       setTimeout(() => {
         if (statusText) {
-          statusText.innerHTML = "𓄹📡•.*【電波発信完了—！】<br>請點擊黑膠唱片暫停音樂🎶<br>📆即可進入紀念日密碼解鎖層👩‍❤️‍👨";
+          statusText.innerHTML = "𓄹📡•.*【電波発信成功—！】<br>請點擊唱片輸入紀念日密碼👩‍❤️‍👨";
         }
       }, 8000); 
     });
