@@ -137,21 +137,21 @@
       from { opacity: 0.5; }
       to { opacity: 1; }
     }
-
-    /* 🔒 密碼解鎖畫面 (#lock-screen) */
+/* 🔒 密碼解鎖畫面 (#lock-screen) */
     #lock-screen {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(11, 15, 25, 0.96);
-      z-index: 999;
+      background: rgba(11, 15, 25, 0.99); /* 稍微調高不透明度，死死擋住底層首頁 */
+      z-index: 100000; /* 把層級拉高，確保過場門戶一消失它就穩穩接管 */
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       opacity: 0;
+      display: none; /* 預設先隱藏，等音樂暫停時由 JS 叫出來，防止一開始畫面閃爍 */
       transition: opacity 0.8s ease;
     }
 
@@ -522,13 +522,13 @@
 </head>
 <body>
 
+
   <!-- 🎵 1. 全螢幕黑膠載入門戶 (#music-gate) -->
   <div id="music-gate">
     <div class="vinyl-container" id="gateVinyl" onclick="toggleMusic()" title="點擊暫停音樂並開啟解鎖"></div>
-    <div class="gate-status-text" id="gateStatusText">𓄹📡•.*【電波発信中⋯】<br>✦ LR星際總部作業處理中⋯<br>請先聽聽音樂稍待片刻(*ᴗ͈ˬᴗ͈)ꕤ ✦</div>
-  </div>
-
-  <!-- 👇 專門用來解鎖手機與平板阻擋的點擊按鈕 -->
+    <div class="gate-status-text" id="gateStatusText">𓄹📡•.*【電波発信中⋯】<br>✦ LR星際總部作業處理中⋯<br>請稍待片刻(*ᴗ͈ˬᴗ͈)ꕤ ✦</div>
+    
+    <!-- 👇 專門用來解鎖手機與平板阻擋的點擊按鈕 -->
     <button id="unlockAudioBtn" style="margin-top: 25px; padding: 12px 28px; background: rgba(125, 185, 222, 0.2); border: 1.5px solid #7DB9DE; color: #7DB9DE; border-radius: 25px; font-size: 0.95rem; cursor: pointer; letter-spacing: 2px; backdrop-filter: blur(5px); transition: all 0.3s;">
       ✨ 點擊開啟星際頻率 ✨
     </button>
