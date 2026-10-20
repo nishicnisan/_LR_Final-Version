@@ -83,16 +83,16 @@
       100% { transform: rotate(360deg); }
     }
 
-    /* 🎵 全螢幕星際黑膠載入過場門戶 (#music-gate) */
+    /* 🎵 1. 全螢幕星際黑膠載入過場門戶 (#music-gate) */
     #music-gate {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(11, 19, 41, 0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      background: rgba(11, 19, 41, 0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -100,10 +100,9 @@
       z-index: 200000;
       opacity: 1;
       visibility: visible;
-      transition: opacity 1.2s ease-in-out, visibility 1.2s ease-in-out;
+      transition: opacity 1s ease-in-out, visibility 1s ease-in-out;
     }
 
-    /* 大黑膠容器：風格效果與小播放器完全一致 */
     .vinyl-container {
       position: relative;
       width: 280px;
@@ -128,7 +127,6 @@
       display: block;
     }
 
-    /* 門戶狀態提示文字 */
     .gate-status-text {
       color: var(--primary);
       font-family: var(--main-font);
@@ -142,25 +140,24 @@
     }
 
     @keyframes pulseText {
-      from { opacity: 0.5; }
+      from { opacity: 0.6; }
       to { opacity: 1; }
     }
 
-    /* 🔒 密碼解鎖畫面 (#lock-screen) */
+    /* 🔒 2. 密碼解鎖畫面 (#lock-screen) - 絕對死死擋住底層 */
     #lock-screen {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: rgba(11, 15, 25, 0.99); /* 稍微調高不透明度，死死擋住底層首頁 */
-      z-index: 100000; /* 把層級拉高，確保過場門戶一消失它就穩穩接管 */
-      display: flex;
+      background: rgba(11, 15, 25, 1); /* 100% 完全不透明，徹底遮蔽底層 */
+      z-index: 100000;
+      display: none;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       opacity: 0;
-      display: none; /* 預設先隱藏，等音樂暫停時由 JS 叫出來，防止一開始畫面閃爍 */
       transition: opacity 0.8s ease;
     }
 
@@ -214,7 +211,7 @@
       animation-play-state: running;
     }
 
-    /* 主應用程式 UI */
+    /* 3. 主應用程式 UI - 解鎖前保持完全隱藏 */
     .app-container {
       position: relative;
       z-index: 2;
@@ -224,6 +221,15 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      opacity: 0; /* 預設完全不可見 */
+      pointer-events: none; /* 預設禁止點擊互動 */
+      transition: opacity 0.8s ease;
+    }
+
+    /* 解鎖後激活顯示 */
+    .app-container.unlocked {
+      opacity: 1;
+      pointer-events: auto;
     }
 
     header {
@@ -247,26 +253,28 @@
       header h1 { font-size: 4.5rem; letter-spacing: 5px; }
     }
 
-    /* 頁籤 Tab Nav */
+    /* 頁籤 Tab Nav - 獨立浮動背板 */
     .nav-tabs {
       display: flex;
       width: 100%;
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(12px);
-      border: none;
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(125, 185, 222, 0.3);
       border-radius: 20px;
-      padding: 5px;
+      padding: 6px;
       margin-bottom: 25px;
-      gap: 5px;
+      gap: 6px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
     }
 
     .tab-btn {
       flex: 1;
-      padding: 10px 5px;
+      padding: 12px 5px;
       background: transparent;
       border: none;
       color: var(--text-sub);
-      font-size: 0.85rem;
+      font-size: 0.88rem;
       font-family: var(--main-font);
       font-weight: 500;
       border-radius: 15px;
@@ -275,39 +283,46 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 3px;
+      gap: 4px;
     }
 
-    .tab-btn .tab-icon { font-size: 1.1rem; }
+    .tab-btn .tab-icon { font-size: 1.15rem; }
+
+    .tab-btn:hover {
+      color: var(--text-main);
+      background: rgba(125, 185, 222, 0.15);
+    }
 
     .tab-btn.active {
-      background: var(--primary);
-      color: #000;
+      background: var(--primary) !important;
+      color: #0b0f19 !important;
       font-weight: 700;
-      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+      box-shadow: 0 4px 15px rgba(125, 185, 222, 0.5);
     }
 
     .card-content { width: 100%; }
 
+    /* 獨立卡片背板面板 - 點擊前絕不顯示 */
     .page-card {
       display: none !important;
-      background: rgba(18, 24, 38, 0.1) !important;
-      backdrop-filter: blur(6px) !important;
-      -webkit-backdrop-filter: blur(6px) !important;
-      border: 1.5px solid rgba(125, 185, 222, 0.7) !important;
+      background: rgba(18, 24, 38, 0.75) !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+      border: 1.5px solid rgba(125, 185, 222, 0.6) !important;
       box-shadow: 
-        0 0 16px rgba(125, 185, 222, 0.35), 
-        0 0 32px rgba(125, 185, 222, 0.12), 
-        0 8px 32px 0 rgba(0, 0, 0, 0.4) !important;
+        0 0 20px rgba(125, 185, 222, 0.25), 
+        0 8px 32px 0 rgba(0, 0, 0, 0.5) !important;
       border-radius: 24px !important;
       padding: 30px 25px !important;
-      animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+      animation: fadeIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
     }
 
-    .page-card.active { display: block !important; }
+    .page-card.active { 
+      display: block !important; 
+    }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(12px); }
+      from { opacity: 0; transform: translateY(14px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -324,7 +339,6 @@
       gap: 8px;
     }
 
-    /* 頁面特定元素 */
     .about-info-box {
       line-height: 1.8;
       color: var(--text-main);
@@ -533,14 +547,14 @@
 
   <!-- 🎵 1. 全螢幕黑膠載入門戶 (#music-gate) -->
   <div id="music-gate">
-    <div class="vinyl-container" id="gateVinyl" onclick="toggleMusic()" title="點擊暫停音樂並開啟解锁">
+    <div class="vinyl-container" id="gateVinyl" onclick="toggleMusic()" title="點擊暫停音樂並進入解鎖">
       <img src="planet.jpg" alt="Planet LR-1027 Vinyl" class="vinyl-img" style="background-image: url('Forgetmenot-vinyl.png'); background-size: cover; background-position: center; border-radius: 50%;">
     </div>
-    <div class="gate-status-text" id="gateStatusText">𓄹📡•.*【電波発信中⋯】<br>✦ LR星際總部作業處理中⋯<br>請稍待片刻(*ᴗ͈ˬᴗ͈)ꕤ ✦</div>
+    <div class="gate-status-text" id="gateStatusText">𓄹📡•.*【電波発信中⋯】<br>✦ LR星際總部作業處理中⋯<br>請點擊唱片暫停音樂進入解鎖(*ᴗ͈ˬᴗ͈)ꕤ ✦</div>
   </div>
 
   <!-- 🔒 2. 密碼解鎖層 (#lock-screen) -->
-  <div id="lock-screen" style="display: none;">
+  <div id="lock-screen">
     <div class="passcode-title">🕊️_ᴇɴᴛᴇʀ ᴏᴜʀ ᴀɴɴɪᴠᴇʀꜱᴀʀ<u>y</u>_💌</div>
     <input type="password" id="passcode" class="passcode-input" maxlength="4" placeholder="••••" oninput="checkPasscode()">
   </div>
@@ -548,13 +562,13 @@
   <!-- 動態星空背景 -->
   <canvas id="stars"></canvas>
 
-  <!-- 3. 主內容區塊 -->
-  <div class="app-container">
+  <!-- 3. 主內容區塊 - 預設隱藏 -->
+  <div class="app-container" id="appContainer">
     <header>
       <h1>AIMER L'HOMME RÉEL.</h1>
     </header>
 
-    <!-- 頁籤選單 // 1. 將按鈕原本的 class="tab-btn active" 改成 class="tab-btn" -->
+    <!-- 頁籤選單（預設沒有 active） -->
     <nav class="nav-tabs">
       <button class="tab-btn" onclick="switchTab('about', this)">
         <span class="tab-icon"> 🐧 </span>
@@ -574,11 +588,11 @@
       </button>
     </nav>
 
-    <!-- 卡片內容區 -->
+    <!-- 卡片內容區（所有卡片預設無 active，點擊按鈕後才獨立顯示） -->
     <div class="card-content">
       
       <!-- 企鵝寶 Tab (About) -->
-      <div id="card-about" class="page-card active">
+      <div id="card-about" class="page-card">
         <div class="card-header-title" style="font-size: 2.2rem;">𝜗𝜚⸝⸝꙳About the Two Little Penguins</div>
         <div class="profile-badge">
           <div>
@@ -600,7 +614,7 @@
         </div>
 
         <div class="video-container" style="margin-top: 20px;">
-          <video id="about-video" autoplay loop muted playsinline preload="auto" controls onplay="this.muted=true; this.volume=0;">
+          <video id="about-video" loop muted playsinline preload="auto" controls onplay="this.muted=true; this.volume=0;">
             <source src="Chu.mp4" type="video/mp4">
             您的瀏覽器不支援 HTML5 影片播放。
           </video>
@@ -650,7 +664,7 @@
         </div>
 
         <div class="video-container" style="margin-bottom: 20px;">
-          <video id="gallery-video" autoplay loop muted playsinline preload="auto" controls onplay="this.muted=true; this.volume=0;">
+          <video id="gallery-video" loop muted playsinline preload="auto" controls onplay="this.muted=true; this.volume=0;">
             <source src="bebe.mp4" type="video/mp4">
             您的瀏覽器不支援 HTML5 影片播放。
           </video>
@@ -760,7 +774,7 @@
     </div>
   </div>
 
-  <!-- 4. 常駐浮動黑膠唱片音樂播放器 (.music-widget) -->
+  <!-- 4. 常駐浮動黑膠唱片音樂播放器 -->
   <div class="music-widget" id="musicBtn" onclick="toggleMusic()" title="點擊播放/暫停音樂"></div>
 
   <!-- 背景音樂播放器 -->
@@ -772,9 +786,8 @@
     <div id="lightbox-text" class="lightbox-caption"></div>
   </div>
 
- <!-- JavaScript 邏輯控制 -->
+  <!-- JavaScript 邏輯控制 -->
   <script>
-    // 💡 1. 核心常數與全域變數宣告（統統拉到最上方，確保所有函式讀得到）
     const CORRECT_PASSCODE = '1027';
     const START_DATE = new Date('2023-10-27T00:00:00');
 
@@ -785,19 +798,19 @@
       'letter': '為你寫的歌.mp3'
     };
 
-    let currentTab = 'about';
+    let currentTab = null;
     const bgm = document.getElementById('bgm');
     const musicBtn = document.getElementById('musicBtn');
     const gateVinyl = document.getElementById('gateVinyl');
     let isWaitingForPause = true;
 
-    // 嘗試自動播放背景音樂
+    // 嘗試自動播放首頁門戶背景音樂
     function startBackgroundMusic() {
       if (bgm && bgm.paused) {
         bgm.play().then(() => {
           syncVinylState(true);
         }).catch(err => {
-          console.log("Autoplay waiting for user gesture:", err);
+          console.log("Autoplay waiting for click:", err);
         });
       }
     }
@@ -813,26 +826,19 @@
       }
     }
 
-    // 2. 頁面開頭與手勢觸發音樂播放（手機/平板全畫面無感解鎖）
-    document.addEventListener('DOMContentLoaded', startBackgroundMusic);
-    ['click', 'touchstart', 'scroll', 'pointerdown'].forEach(eventType => {
-      window.addEventListener(eventType, startBackgroundMusic, { once: true });
-    });
-
-    // 3. 頁面完全載入後嘗試啟動播放
+    // 頁面載入後自動啟動門戶音樂
     window.addEventListener('load', function() {
       startBackgroundMusic();
       const statusText = document.querySelector('.gate-status-text');
 
       setTimeout(() => {
         if (statusText) {
-          statusText.innerHTML = "𓄹📡•.*【電波発信完了—！】<br>接下來請先點擊唱片暫停音樂🎶<br>📆再輸入我們的紀念日👩‍❤️‍👨";
+          statusText.innerHTML = "𓄹📡•.*【電波発信完了—！】<br>請點擊黑膠唱片暫停音樂🎶<br>📆即可進入紀念日密碼解鎖層👩‍❤️‍👨";
         }
-        isWaitingForPause = true;
-      }, 10000); 
+      }, 8000); 
     });
-    
-    // 4. 監聽音樂暫停事件：手動點擊黑膠暫停後，優雅觸發解鎖頁面
+
+    // 監聽音樂暫停事件：手動點擊門戶黑膠暫停後，優雅觸發密碼解鎖頁面
     bgm.addEventListener('pause', () => {
       syncVinylState(false);
 
@@ -849,7 +855,7 @@
               lockScreen.style.display = 'flex';
               setTimeout(() => { lockScreen.style.opacity = '1'; }, 50);
             }
-          }, 1200);
+          }, 1000);
         }
       }
     });
@@ -858,32 +864,40 @@
       syncVinylState(true); 
     });
 
-    // 5. 密碼驗證邏輯
+    // 密碼驗證邏輯
     function checkPasscode() {
       const input = document.getElementById('passcode').value;
       if (input === CORRECT_PASSCODE) {
         const lockScreen = document.getElementById('lock-screen');
+        const appContainer = document.getElementById('appContainer');
+
         if (lockScreen) {
           lockScreen.style.opacity = '0';
           setTimeout(() => {
             lockScreen.style.display = 'none';
+            // 解鎖完成：才讓主選單容器浮現，下方內文卡片仍保持隱藏
+            if (appContainer) {
+              appContainer.classList.add('unlocked');
+            }
           }, 800);
         }
-        // 解鎖後保持安靜，等待使用者點擊上排按鈕才觸發展現與音樂
       }
     }
 
-    // 6. 切換頁籤與點擊載入音樂
+    // 切換頁籤按鈕與獨立背板內文
     function switchTab(tabId, btnElement) {
       currentTab = tabId;
 
+      // 1. 導覽按鈕高亮狀態
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       btnElement.classList.add('active');
 
+      // 2. 顯示點擊的獨立內文卡片背板
       document.querySelectorAll('.page-card').forEach(card => card.classList.remove('active'));
       const activeCard = document.getElementById(`card-${tabId}`);
       if (activeCard) activeCard.classList.add('active');
 
+      // 3. 影片播放控制
       const aboutVideo = document.getElementById('about-video');
       if (aboutVideo) {
         if (tabId === 'about') {
@@ -902,7 +916,7 @@
         }
       }
 
-      // 🎵 點擊按鈕切換音樂與啟動播放
+      // 4. 精準載入並播放該頁籤專屬音樂
       const targetMusic = musicMap[tabId];
       if (targetMusic && bgm.src.indexOf(encodeURI(targetMusic)) === -1 && bgm.src.indexOf(targetMusic) === -1) {
         bgm.src = targetMusic;
@@ -911,11 +925,11 @@
       bgm.play().then(() => {
         syncVinylState(true);
       }).catch(err => {
-        console.log("Audio play waiting for user interaction:", err);
+        console.log("Audio play gesture required:", err);
       });
     }
 
-    // 7. 時光沙漏計時器
+    // 時光沙漏計時器
     function updateTimer() {
       const now = new Date();
       const diff = now - START_DATE;
@@ -933,7 +947,7 @@
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    // 8. 控制音樂播放與暫停
+    // 浮動黑膠點擊控制
     function toggleMusic() {
       if (bgm.paused) {
         bgm.play();
@@ -942,7 +956,7 @@
       }
     }
 
-    // 9. 動態星空背景
+    // 動態星空背景
     const canvas = document.getElementById('stars');
     const ctx = canvas.getContext('2d');
     let stars = [];
@@ -978,7 +992,7 @@
     }
     drawStars();
 
-    // 10. Lightbox 功能
+    // Lightbox 功能
     function openLightbox(imgSrc, captionText) {
       const modal = document.getElementById('lightbox');
       const img = document.getElementById('lightbox-img');
