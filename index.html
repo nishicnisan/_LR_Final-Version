@@ -554,9 +554,9 @@
       <h1>AIMER L'HOMME RÉEL.</h1>
     </header>
 
-    <!-- 頁籤選單 -->
+    <!-- 頁籤選單 // 1. 將按鈕原本的 class="tab-btn active" 改成 class="tab-btn" -->
     <nav class="nav-tabs">
-      <button class="tab-btn active" onclick="switchTab('about', this)">
+      <button class="tab-btn" onclick="switchTab('about', this)">
         <span class="tab-icon"> 🐧 </span>
         <span>企鵝寶</span>
       </button>
@@ -772,8 +772,9 @@
     <div id="lightbox-text" class="lightbox-caption"></div>
   </div>
 
-  <!-- JavaScript 邏輯控制 -->
+ <!-- JavaScript 邏輯控制 -->
   <script>
+    // 💡 1. 核心常數與全域變數宣告（統統拉到最上方，確保所有函式讀得到）
     const CORRECT_PASSCODE = '1027';
     const START_DATE = new Date('2023-10-27T00:00:00');
 
@@ -812,13 +813,13 @@
       }
     }
 
-    // 1. 頁面開頭與手勢觸發音樂播放（解決手機/平板自動播放限制）
+    // 2. 頁面開頭與手勢觸發音樂播放（手機/平板全畫面無感解鎖）
     document.addEventListener('DOMContentLoaded', startBackgroundMusic);
-    ['click', 'touchstart', 'scroll'].forEach(eventType => {
+    ['click', 'touchstart', 'scroll', 'pointerdown'].forEach(eventType => {
       window.addEventListener(eventType, startBackgroundMusic, { once: true });
     });
 
-    // 2. 頁面完全載入後：讓黑膠先轉，倒數後溫柔顯示切換後的提示文字
+    // 3. 頁面完全載入後嘗試啟動播放
     window.addEventListener('load', function() {
       startBackgroundMusic();
       const statusText = document.querySelector('.gate-status-text');
@@ -831,7 +832,7 @@
       }, 10000); 
     });
     
-    // 3. 監聽音樂暫停事件：於過場門戶階段，使用者手動暫停後觸發解鎖頁面
+    // 4. 監聽音樂暫停事件：手動點擊黑膠暫停後，優雅觸發解鎖頁面
     bgm.addEventListener('pause', () => {
       syncVinylState(false);
 
@@ -857,7 +858,7 @@
       syncVinylState(true); 
     });
 
-    // 4. 密碼驗證邏輯
+    // 5. 密碼驗證邏輯
     function checkPasscode() {
       const input = document.getElementById('passcode').value;
       if (input === CORRECT_PASSCODE) {
@@ -868,11 +869,11 @@
             lockScreen.style.display = 'none';
           }, 800);
         }
-        startBackgroundMusic();
+        // 解鎖後保持安靜，等待使用者點擊上排按鈕才觸發展現與音樂
       }
     }
 
-    // 切換頁籤
+    // 6. 切換頁籤與點擊載入音樂
     function switchTab(tabId, btnElement) {
       currentTab = tabId;
 
@@ -901,15 +902,20 @@
         }
       }
 
+      // 🎵 點擊按鈕切換音樂與啟動播放
       const targetMusic = musicMap[tabId];
       if (targetMusic && bgm.src.indexOf(encodeURI(targetMusic)) === -1 && bgm.src.indexOf(targetMusic) === -1) {
-        const isPlaying = !bgm.paused;
         bgm.src = targetMusic;
-        if (isPlaying) bgm.play();
       }
+      
+      bgm.play().then(() => {
+        syncVinylState(true);
+      }).catch(err => {
+        console.log("Audio play waiting for user interaction:", err);
+      });
     }
 
-    // 時光沙漏計時器
+    // 7. 時光沙漏計時器
     function updateTimer() {
       const now = new Date();
       const diff = now - START_DATE;
@@ -927,7 +933,7 @@
     setInterval(updateTimer, 1000);
     updateTimer();
 
-    // 控制音樂播放與暫停
+    // 8. 控制音樂播放與暫停
     function toggleMusic() {
       if (bgm.paused) {
         bgm.play();
@@ -936,7 +942,7 @@
       }
     }
 
-    // 動態星空背景
+    // 9. 動態星空背景
     const canvas = document.getElementById('stars');
     const ctx = canvas.getContext('2d');
     let stars = [];
@@ -972,7 +978,7 @@
     }
     drawStars();
 
-    // Lightbox 功能
+    // 10. Lightbox 功能
     function openLightbox(imgSrc, captionText) {
       const modal = document.getElementById('lightbox');
       const img = document.getElementById('lightbox-img');
