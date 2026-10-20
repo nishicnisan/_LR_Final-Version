@@ -97,7 +97,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      z-index: 10000;
+      z-index: 200000;
       opacity: 1;
       visibility: visible;
       transition: opacity 1.2s ease-in-out, visibility 1.2s ease-in-out;
@@ -120,6 +120,14 @@
       cursor: pointer;
     }
 
+    .vinyl-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+
     /* 門戶狀態提示文字 */
     .gate-status-text {
       color: var(--primary);
@@ -137,7 +145,8 @@
       from { opacity: 0.5; }
       to { opacity: 1; }
     }
-/* 🔒 密碼解鎖畫面 (#lock-screen) */
+
+    /* 🔒 密碼解鎖畫面 (#lock-screen) */
     #lock-screen {
       position: fixed;
       top: 0;
@@ -522,16 +531,17 @@
 </head>
 <body>
 
-
   <!-- 🎵 1. 全螢幕黑膠載入門戶 (#music-gate) -->
   <div id="music-gate">
-    <div class="vinyl-container" id="gateVinyl" onclick="toggleMusic()" title="點擊暫停音樂並開啟解鎖"></div>
+    <div class="vinyl-container" id="gateVinyl" onclick="toggleMusic()" title="點擊暫停音樂並開啟解锁">
+      <img src="planet.jpg" alt="Planet LR-1027 Vinyl" class="vinyl-img" style="background-image: url('Forgetmenot-vinyl.png'); background-size: cover; background-position: center; border-radius: 50%;">
+    </div>
     <div class="gate-status-text" id="gateStatusText">𓄹📡•.*【電波発信中⋯】<br>✦ LR星際總部作業處理中⋯<br>請稍待片刻(*ᴗ͈ˬᴗ͈)ꕤ ✦</div>
-
+  </div>
 
   <!-- 🔒 2. 密碼解鎖層 (#lock-screen) -->
   <div id="lock-screen" style="display: none;">
-    <div class="passcode-title">🕊️_ᴇɴᴛᴇʀ ᴏᴜʀ ᴀɴɴɪᴠᴇʀꜱᴀʀʏ_💌</div>
+    <div class="passcode-title">🕊️_ᴇɴᴛᴇʀ ᴏᴜʀ ᴀɴɴɪᴠᴇʀꜱᴀʀ<u>y</u>_💌</div>
     <input type="password" id="passcode" class="passcode-input" maxlength="4" placeholder="••••" oninput="checkPasscode()">
   </div>
 
@@ -690,7 +700,7 @@
             <img src="260703.jpg" alt="20260703宜蘭">
             <div class="polaroid-caption">還有開心宜蘭生日旅( ⑉¯ ꇴ ¯⑉ )🩵ྀི</div>
           </div>
-    
+        
           <div class="polaroid-item" onclick="openLightbox('期待未來.jpg', '今後的歲月～讓我們一起瞭解〰️💞你就是我要遇見的特別的人🤍')">
             <img src="期待未來.jpg" alt="期待未來">
             <div class="polaroid-caption">𝑩𝒂𝒃𝒚, 𝒚𝒐𝒖 𝒂𝒓𝒆 𝒂 𝒍𝒊𝒇𝒆𝒕𝒊𝒎𝒆 💏</div>
@@ -802,37 +812,21 @@
       }
     }
 
-    // 1. 頁面開頭與手勢觸發音樂播放
+    // 1. 頁面開頭與手勢觸發音樂播放（解決手機/平板自動播放限制）
     document.addEventListener('DOMContentLoaded', startBackgroundMusic);
     ['click', 'touchstart', 'scroll'].forEach(eventType => {
       window.addEventListener(eventType, startBackgroundMusic, { once: true });
     });
 
-    // 📱【手機/平板專用】按鈕點擊解鎖邏輯
-  
-      if (unlockBtn) {
-        unlockBtn.addEventListener('click', function() {
-          startBackgroundMusic();
-          this.style.display = 'none'; // 點擊後隱藏按鈕
-          const statusText = document.querySelector('.gate-status-text');
-          if (statusText) {
-            statusText.innerHTML = "𓄹📡•.*【電波発信完了—！】<br>接下來請先點擊唱片暫停音樂🎶<br>📆再輸入我們的紀念日👩‍❤️‍👨";
-          }
-        });
-      }
-    });
-
-    // 2. 頁面完全載入後：讓黑膠先轉個幾秒，再溫柔顯示切換後的提示文字
+    // 2. 頁面完全載入後：讓黑膠先轉，倒數後溫柔顯示切換後的提示文字
     window.addEventListener('load', function() {
       startBackgroundMusic();
       const statusText = document.querySelector('.gate-status-text');
 
-      // 這裡的 2000 代表延遲 2 秒（2000毫秒），妳可以自行改成 3000 (3秒) 或 4000 (4秒)
       setTimeout(() => {
         if (statusText) {
           statusText.innerHTML = "𓄹📡•.*【電波発信完了—！】<br>接下來請先點擊唱片暫停音樂🎶<br>📆再輸入我們的紀念日👩‍❤️‍👨";
         }
-        // 標記進入等待手動暫停階段
         isWaitingForPause = true;
       }, 10000); 
     });
